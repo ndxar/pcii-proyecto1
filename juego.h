@@ -24,6 +24,7 @@ protected:
     Jugador* jugador;
 
     QList<dibujable*> lista_dibujables;
+    // QList<asteroide*> lista_asteroides;
 
 };
 

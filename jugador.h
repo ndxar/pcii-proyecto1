@@ -6,7 +6,7 @@
 class Jugador : public Nave
 {
 public:
-    Jugador(float friccion);
+    Jugador(QVector2D posicion, float friccion);
 
     void disparar();
     void dibujar(QPainter* p) override;

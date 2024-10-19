@@ -2,8 +2,9 @@
 
 #include "jugador.h"
 
-Jugador::Jugador(float friccion)
+Jugador::Jugador(QVector2D posicion, float friccion)
 {
+    this->posicion = posicion;
     this->friccion = friccion;
     this->angulo = 180;
 }

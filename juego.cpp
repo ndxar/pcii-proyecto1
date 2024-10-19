@@ -5,7 +5,7 @@ Juego::Juego()
     tablero = new Tablero(QVector2D(0, 0), QVector2D(500, 500));
     lista_dibujables.append(tablero);
 
-    jugador = new Jugador(0.985);
+    jugador = new Jugador(tablero->getCentro(),0.985);
     lista_dibujables.append(jugador);
 }
 
@@ -18,6 +18,7 @@ Juego::~Juego()
 void Juego::actualizarEstado(float time)
 {
     jugador->actualizar(time);
+    jugador->checkBordes(tablero);
 }
 
 void Juego::dibujar(QPainter * p) {
