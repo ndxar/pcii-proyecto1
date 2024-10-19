@@ -1,10 +1,17 @@
 #ifndef NAVE_H
 #define NAVE_H
 
-class Nave
+#include "objetovolador.h"
+
+class Nave : public ObjetoVolador
 {
 public:
     Nave();
+
+    virtual void actualizar(float time) = 0;
+
+protected:
+
 };
 
 #endif // NAVE_H

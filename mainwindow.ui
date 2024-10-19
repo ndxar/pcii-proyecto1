@@ -17,10 +17,10 @@
    <widget class="gameContainer" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>20</y>
-      <width>391</width>
-      <height>541</height>
+      <x>0</x>
+      <y>0</y>
+      <width>891</width>
+      <height>601</height>
      </rect>
     </property>
    </widget>
@@ -31,7 +31,7 @@
      <x>0</x>
      <y>0</y>
      <width>895</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QDebug>
 
+
 gameContainer::gameContainer(QWidget* parent)
     : QWidget{parent}
 {
@@ -34,6 +35,7 @@ void gameContainer::keyPressEvent(QKeyEvent* event) {
     {
         case Qt::Key_Up :
             qDebug() << "aprete arriba :D CASE";
+            juego->getJugador()->setVelocidad(0.3);
             break;
 
         case Qt::Key_Down :
@@ -42,10 +44,12 @@ void gameContainer::keyPressEvent(QKeyEvent* event) {
 
         case Qt::Key_Right :
             qDebug() << "aprete der CASE";
+            juego->getJugador()->rotar(5);
             break;
 
         case Qt::Key_Left :
             qDebug() << "aprete izq CASE";
+            juego->getJugador()->rotar(-5);
             break;
 
         case Qt::Key_Space :

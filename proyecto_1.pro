@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     gamecontainer.cpp \
     juego.cpp \
+    jugador.cpp \
     main.cpp \
     mainwindow.cpp \
     nave.cpp \
@@ -21,6 +22,7 @@ HEADERS += \
     dibujable.h \
     gamecontainer.h \
     juego.h \
+    jugador.h \
     mainwindow.h \
     nave.h \
     objetovolador.h \

@@ -1,3 +1,7 @@
 #include "nave.h"
 
-Nave::Nave() {}
+Nave::Nave()
+{
+
+}
+

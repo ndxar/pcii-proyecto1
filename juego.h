@@ -3,6 +3,8 @@
 
 #include "Dibujable.h"
 #include "tablero.h"
+#include "nave.h"
+#include "jugador.h"
 #include "objetovolador.h"
 
 class Juego : public dibujable
@@ -15,10 +17,13 @@ public:
     void dibujar(QPainter* p) override;
     void actualizarEstado(float time);
 
+    Jugador* getJugador();
+
 protected:
     Tablero* tablero;
+    Jugador* jugador;
 
-    QList<dibujable *> lista_dibujables;
+    QList<dibujable*> lista_dibujables;
 
 };
 

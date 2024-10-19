@@ -5,6 +5,7 @@
 #include <QTimer>
 #include <QKeyEvent>
 #include "juego.h"
+#include "jugador.h"
 
 class gameContainer : public QWidget
 {
