@@ -10,7 +10,6 @@ public:
     Nave();
 
     // void checkColision(QList<asteroide*> lista_asteroides);
-    void checkBordes(Tablero* tablero);
 
     virtual void actualizar(float time) = 0;
 

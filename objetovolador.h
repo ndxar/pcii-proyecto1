@@ -3,6 +3,7 @@
 
 #include <QVector2D>
 #include "dibujable.h"
+#include "tablero.h"
 
 class ObjetoVolador : public dibujable
 {
@@ -14,6 +15,7 @@ public:
     ObjetoVolador();
 
     virtual void actualizar(float time) = 0;
+    void checkBordes(Tablero* tablero);
 
     QVector2D getPosicion() {return posicion;}
     QVector2D getVelocidad() {return velocidad;}
