@@ -13,22 +13,45 @@ Juego::Juego()
 Juego::~Juego()
 {
     delete tablero;
+    delete jugador;
 }
 
 void Juego::actualizarEstado(float time)
 {
     jugador->actualizar(time);
     jugador->checkBordes(tablero);
+    for (int i=0; i<lista_proyectiles.length(); i++)
+    {
+        // lista_proyectiles[i]->actualizar(time);
+        if (lista_proyectiles[i] != NULL)
+            { lista_proyectiles[i]->actualizar(time); }
+        else
+            { rmvProyectil(lista_proyectiles[i]); }
+    }
 }
 
-void Juego::dibujar(QPainter * p) {
+void Juego::dibujar(QPainter* p) {
 
     for (int i =0; i<lista_dibujables.length(); i++)
+    {
         lista_dibujables[i]->dibujar(p);
-
+        qDebug() << "111";
+    }
 }
 
 Jugador* Juego::getJugador()
 {
     return jugador;
+}
+
+void Juego::addProyectil(Proyectil* newBala)
+{
+    lista_proyectiles.append(newBala);
+    lista_dibujables.append(newBala);
+}
+
+void Juego::rmvProyectil(Proyectil* bala)
+{
+    lista_proyectiles.remove(lista_proyectiles.indexOf(bala));
+    lista_dibujables.remove(lista_dibujables.indexOf(bala));
 }

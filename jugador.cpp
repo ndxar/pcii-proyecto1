@@ -11,6 +11,7 @@ Jugador::Jugador(QVector2D posicion, float friccion)
 
 void Jugador::dibujar(QPainter* p)
 {
+    p->resetTransform();
     QPolygon Poligono;
     Poligono << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
     // Poligono.translate(QPoint(100,100));
@@ -46,4 +47,16 @@ void Jugador::actualizar(float time)
 
     velocidad.setX( velocidad.x() * friccion);
     velocidad.setY( velocidad.y() * friccion);
+}
+
+QVector2D Jugador::getDireccion()
+{
+    return QVector2D( -sin(getAngRad()), cos(getAngRad()) );
+}
+
+Proyectil* Jugador::disparar()
+{
+    qDebug() << "Pos jug: " << posicion;
+    Proyectil* newBala = new Proyectil(this, posicion, getDireccion(), 1);
+    return newBala;
 }

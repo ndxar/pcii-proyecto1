@@ -2,13 +2,14 @@
 #define JUGADOR_H
 
 #include "nave.h"
+#include "proyectil.h"
 
 class Jugador : public Nave
 {
 public:
     Jugador(QVector2D posicion, float friccion);
 
-    void disparar();
+    Proyectil* disparar();
     void dibujar(QPainter* p) override;
     void actualizar(float time) override;
 
@@ -17,6 +18,7 @@ public:
 
     QVector2D getPosicion();
     QVector2D getVelocidad();
+    QVector2D getDireccion();
     float getAngRad();
 
 private:

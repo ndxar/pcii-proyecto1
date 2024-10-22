@@ -54,6 +54,7 @@ void gameContainer::keyPressEvent(QKeyEvent* event) {
 
         case Qt::Key_Space :
             qDebug() << "aprete space CASE";
+            juego->addProyectil( juego->getJugador()->disparar() );
             break;
 
         case Qt::Key_E :
