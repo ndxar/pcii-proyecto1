@@ -11,7 +11,7 @@ Proyectil::Proyectil(Nave* autor, QVector2D posicionDisparo, QVector2D direccion
 
 void Proyectil::dibujar(QPainter* p)
 {
-    p->resetTransform();
+    // p->resetTransform();
     p->drawEllipse(QPointF(posicion.x(), posicion.y()), 10, 10);
 }
 

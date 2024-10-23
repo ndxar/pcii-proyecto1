@@ -11,13 +11,12 @@ Jugador::Jugador(QVector2D posicion, float friccion)
 
 void Jugador::dibujar(QPainter* p)
 {
-    p->resetTransform();
     QPolygon Poligono;
     Poligono << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
-    // Poligono.translate(QPoint(100,100));
-    p->translate(posicion.x(),posicion.y());
-    p->rotate(angulo);
-    p->drawPolygon(Poligono);
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
+    // p->translate(posicion.x(),posicion.y());
+    // p->rotate(angulo);
+    p->drawPolygon(transformada.map(Poligono));
 }
 
 float Jugador::getAngRad()
@@ -57,6 +56,6 @@ QVector2D Jugador::getDireccion()
 Proyectil* Jugador::disparar()
 {
     qDebug() << "Pos jug: " << posicion;
-    Proyectil* newBala = new Proyectil(this, posicion, getDireccion(), 1);
+    Proyectil* newBala = new Proyectil(this, posicion, getDireccion(), 0.9);
     return newBala;
 }
