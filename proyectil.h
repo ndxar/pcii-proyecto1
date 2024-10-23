@@ -16,6 +16,8 @@ public:
     void dibujar(QPainter *p) override;
     void actualizar(float time) override;
 
+    bool isAlive();
+
 
 protected:
     float tiempoProyectil = 0;

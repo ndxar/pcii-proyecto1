@@ -2,9 +2,9 @@
 
 Proyectil::Proyectil(Nave* autor, QVector2D posicionDisparo, QVector2D direccionDisparo, float velocidad)
 {
-    qDebug() << "Pos proy: " << posicion;
+    // qDebug() << "Pos proy: " << posicion;
     this->posicion = posicionDisparo;
-    qDebug() << "Pos proy: " << posicion;
+    // qDebug() << "Pos proy: " << posicion;
     this->velocidad = direccionDisparo * velocidad;
     this->autor = autor;
 }
@@ -17,20 +17,22 @@ void Proyectil::dibujar(QPainter* p)
 
 void Proyectil::actualizar(float time)
 {
-    if ( tiempoProyectil <= tiempoDeVida)
-    {
-        qDebug() << "aaaaa";
-        posicion.setX( posicion.x() + velocidad.x() * time );
-        posicion.setY( posicion.y() + velocidad.y() * time );
+    posicion.setX( posicion.x() + velocidad.x() * time );
+    posicion.setY( posicion.y() + velocidad.y() * time );
 
-        tiempoProyectil = tiempoProyectil+time;
-        // return 1;
+    tiempoProyectil = tiempoProyectil+time;
+}
+
+bool Proyectil::isAlive()
+{
+    if (tiempoProyectil <= tiempoDeVida)
+    {
+        qDebug() << "proyec: " << tiempoProyectil << "vida: " << tiempoDeVida;
+        return 1;
     }
     else
     {
-        qDebug() << "bbbbb";
-        // return 0;
-        delete this;
+        qDebug() << "DED";
+        return 0;
     }
-
 }

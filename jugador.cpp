@@ -55,7 +55,7 @@ QVector2D Jugador::getDireccion()
 
 Proyectil* Jugador::disparar()
 {
-    qDebug() << "Pos jug: " << posicion;
+    // qDebug() << "Pos jug: " << posicion;
     Proyectil* newBala = new Proyectil(this, posicion, getDireccion(), 0.9);
     return newBala;
 }

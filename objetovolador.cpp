@@ -32,6 +32,6 @@ void ObjetoVolador::checkBordes(Tablero* tablero)
     }
     if (posicion.y() < tablero->getP1().y())
     {
-        posicion.setY( tablero->getP2().x() );
+        posicion.setY( tablero->getP2().y() );
     }
 }
