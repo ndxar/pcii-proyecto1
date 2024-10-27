@@ -23,16 +23,18 @@ void Proyectil::actualizar(float time)
     tiempoProyectil = tiempoProyectil+time;
 }
 
-bool Proyectil::isAlive()
+bool Proyectil::isAlive(float tiempoDeVida)
 {
     if (tiempoProyectil <= tiempoDeVida)
     {
-        qDebug() << "proyec: " << tiempoProyectil << "vida: " << tiempoDeVida;
+        // qDebug() << "proyec: " << tiempoProyectil << "vida: " << tiempoDeVida;
         return 1;
     }
     else
     {
-        qDebug() << "DED";
+        // qDebug() << "DED";
         return 0;
     }
 }
+
+Proyectil::~Proyectil() {}

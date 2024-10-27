@@ -12,17 +12,18 @@ class Proyectil : public ObjetoVolador
 {
 public:
     Proyectil(Nave* autor, QVector2D posicionDisparo, QVector2D direccionDisparo, float velocidad);
+    virtual ~Proyectil();
 
     void dibujar(QPainter *p) override;
     void actualizar(float time) override;
 
-    bool isAlive();
+    bool isAlive(float tiempoDeVida);
 
 
 protected:
     float tiempoProyectil = 0;
     Nave* autor;
-    const float tiempoDeVida = 500;
+    // const float tiempoDeVida;
 };
 
 #endif // PROYECTIL_H

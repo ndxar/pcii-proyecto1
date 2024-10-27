@@ -14,6 +14,7 @@ SOURCES += \
     as_mediano.cpp \
     as_subdivisible.cpp \
     asteroide.cpp \
+    colisionable.cpp \
     gamecontainer.cpp \
     juego.cpp \
     jugador.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     as_mediano.h \
     as_subdivisible.h \
     asteroide.h \
+    colisionable.h \
     dibujable.h \
     gamecontainer.h \
     juego.h \

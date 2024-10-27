@@ -7,6 +7,8 @@
 #include "jugador.h"
 #include "objetovolador.h"
 #include "proyectil.h"
+#include "asteroide.h"
+#include "as_grande.h"
 
 class Juego : public dibujable
 {
@@ -28,7 +30,8 @@ protected:
 
     QList<dibujable*> lista_dibujables;
     QList<Proyectil*> lista_proyectiles;
-    // QList<asteroide*> lista_asteroides;
+    QList<Asteroide*> lista_asteroides;
+    QList<ObjetoVolador*> lista_colisionables;
 
 };
 

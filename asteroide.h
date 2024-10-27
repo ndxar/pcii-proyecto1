@@ -8,6 +8,12 @@ class Asteroide : public ObjetoVolador
 public:
     Asteroide();
 
+    void actualizar(float time);
+
+    virtual ~Asteroide() { }
+
+protected:
+
 };
 
 #endif // ASTEROIDE_H

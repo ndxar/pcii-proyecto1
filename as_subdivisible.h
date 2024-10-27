@@ -7,6 +7,14 @@ class As_Subdivisible : public Asteroide
 {
 public:
     As_Subdivisible();
+
+    // void dibujar(QPainter* p) override;
+
+    virtual void subdividir() = 0;
+
+    virtual ~As_Subdivisible() { }
+
+protected:
 };
 
 #endif // AS_SUBDIVISIBLE_H

@@ -7,12 +7,11 @@
 
 // }
 
-// ObjetoVolador::ObjetoVolador(QVector2D posicion, QVector2D velocidad) :
-//     posicion(posicion),
-//     velocidad(velocidad)
-// {
-
-// }
+ObjetoVolador::ObjetoVolador(QVector2D posicion, QVector2D velocidad)
+{
+    this->posicion = posicion;
+    this->velocidad = velocidad;
+}
 
 ObjetoVolador::ObjetoVolador() {}
 
