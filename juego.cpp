@@ -49,25 +49,27 @@ void Juego::actualizarEstado(float time)
 
         for (int j=0; j<lista_colisionables.length(); j++)
         {
-
-
-            //chequeo que no sea el mismo objeto (o asteroide en general deberia ser)
-            if ((lista_colisionables[j] != lista_asteroides[i]) && (lista_colisionables[j]->getColisionable().estaColisionando(lista_asteroides[i]->getColisionable())) )
+            if (lista_colisionables[j]->getColisionable().estaColisionando(lista_asteroides[i]->getColisionable()))
             {
-                if (lista_asteroides[i]->hayQueDividir())
+                switch (lista_colisionables[j]->tipo())
                 {
-                    if (lista_asteroides[i]->esGrande())
-                    {
-                        qDebug() << "divido el grande en medianos";
-                        As_Mediano asMed1 = new As_Mediano(lista_asteroides[i]->getPosicion()+,  );
-                    }
-                    else
-                    {
-                        qDebug() << "divido el mediano en chicos";
-                    }
-                }
-                qDebug() << "remuevo asteroide";
-                rmvAsteroide(lista_asteroides[i]);
+                default:        // si colisiono con algo que no sea proyectil, jugador, ovni chico o grande, ignoro, no hago anda
+                    break;
+                case TipoObjeto::Proyectil:
+                    qDebug() << "colision con proyectil";
+                    break;
+                case TipoObjeto::Jugador:
+                    qDebug() << "colision con jugador";
+                    break;
+                case TipoObjeto::Ov_Chico:
+                    qDebug() << "colision con ov chico";
+                    break;
+                case TipoObjeto::Ov_Grande:
+                    qDebug() << "colision con ov grande";
+                    break;
+            }
+
+
             }
         }
 
