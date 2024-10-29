@@ -4,6 +4,8 @@
 #include <QVector2D>
 #include "dibujable.h"
 #include "tablero.h"
+#include "colisionable.h"
+#include "tipoObjeto.h"
 
 class ObjetoVolador : public dibujable
 {
@@ -19,9 +21,14 @@ public:
 
     QVector2D getPosicion() {return posicion;}
     QVector2D getVelocidad() {return velocidad;}
+    virtual TipoObjeto tipo() const = 0;
+
+    Colisionable getColisionable() {return colisionable;}
 
 protected:
     QVector2D posicion, velocidad;
+    Colisionable colisionable;
+
 };
 
 

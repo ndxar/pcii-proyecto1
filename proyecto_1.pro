@@ -46,7 +46,8 @@ HEADERS += \
     ov_grande.h \
     ovni.h \
     proyectil.h \
-    tablero.h
+    tablero.h \
+    tipoObjeto.h
 
 FORMS += \
     mainwindow.ui

@@ -10,9 +10,13 @@ public:
 
     void actualizar(float time);
 
+    virtual bool hayQueDividir() = 0;
+    virtual bool esGrande() = 0;
+
     virtual ~Asteroide() { }
 
 protected:
+    QPolygon poligono;
 
 };
 

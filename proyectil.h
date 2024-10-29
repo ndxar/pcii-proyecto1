@@ -12,12 +12,13 @@ class Proyectil : public ObjetoVolador
 {
 public:
     Proyectil(Nave* autor, QVector2D posicionDisparo, QVector2D direccionDisparo, float velocidad);
-    virtual ~Proyectil();
+    virtual ~Proyectil() {}
 
     void dibujar(QPainter *p) override;
     void actualizar(float time) override;
 
     bool isAlive(float tiempoDeVida);
+    TipoObjeto tipo() const override { return TipoObjeto::Proyectil; }
 
 
 protected:

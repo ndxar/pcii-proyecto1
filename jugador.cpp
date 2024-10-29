@@ -6,17 +6,33 @@ Jugador::Jugador(QVector2D posicion, float friccion)
 {
     this->posicion = posicion;
     this->friccion = friccion;
+    QPolygon poly;
+    poly << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
+    this->poligono = poly;
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
+    this->colisionable.setPolyShape(poly);
+    this->colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
     this->angulo = 180;
 }
 
 void Jugador::dibujar(QPainter* p)
 {
-    QPolygon Poligono;
-    Poligono << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
+    // poligono << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
     QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
-    // p->translate(posicion.x(),posicion.y());
-    // p->rotate(angulo);
-    p->drawPolygon(transformada.map(Poligono));
+
+    //transformo el colisionable
+    QPolygon colisionableTrans = transformada.map( colisionable.getPolyShape() );
+    colisionable.setPoligono( colisionableTrans );
+
+    //dibuja el poligono del colisionable
+    p->drawPolygon(colisionable.getPoligono());
+
+
+
+    //dibuja el poligono del modelo que ve el usuario
+    // p->drawPolygon(transformada.map(poligono));
+
+
 }
 
 float Jugador::getAngRad()
@@ -37,12 +53,16 @@ void Jugador::setVelocidad(float newVelocidad)
 void Jugador::rotar(int deltaAngulo)
 {
     angulo = angulo+deltaAngulo;
+    // angulo = deltaAngulo;
 }
 
 void Jugador::actualizar(float time)
 {
     posicion.setX( posicion.x() + velocidad.x() * time );
     posicion.setY( posicion.y() + velocidad.y() * time );
+
+    // QTransform transformada = QTransform().translate(velocidad.x() * time,velocidad.y() * time);
+    // colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
 
     velocidad.setX( velocidad.x() * friccion);
     velocidad.setY( velocidad.y() * friccion);
