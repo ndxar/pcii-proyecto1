@@ -12,8 +12,11 @@ public:
 
     void subdividir() override;
 
-protected:
+    bool esGrande() override {return 1;}
+    TipoObjeto tipo() const override { return TipoObjeto::As_Grande; }
 
+protected:
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5);
 };
 
 #endif // AS_GRANDE_H

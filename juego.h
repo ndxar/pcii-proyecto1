@@ -9,6 +9,9 @@
 #include "proyectil.h"
 #include "asteroide.h"
 #include "as_grande.h"
+#include "as_mediano.h"
+#include "as_subdivisible.h"
+#include "as_chico.h"
 
 class Juego : public dibujable
 {
@@ -21,6 +24,8 @@ public:
     void actualizarEstado(float time);
     void addProyectil(Proyectil* newBala);
     void rmvProyectil(Proyectil* bala);
+    void addAsteroide(Asteroide* newAsteroide);
+    void rmvAsteroide(Asteroide* asteroide);
 
     Jugador* getJugador();
 

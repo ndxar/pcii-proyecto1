@@ -7,6 +7,8 @@ class Ov_Grande : public Ovni
 {
 public:
     Ov_Grande();
+
+    TipoObjeto tipo() const override { return TipoObjeto::Ov_Grande; }
 };
 
 #endif // OV_GRANDE_H

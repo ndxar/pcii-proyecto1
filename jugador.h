@@ -20,12 +20,14 @@ public:
     QVector2D getVelocidad();
     QVector2D getDireccion();
     float getAngRad();
+    TipoObjeto tipo() const override { return TipoObjeto::Jugador; }
 
 private:
     // QVector2D posicion;
     // QVector2D velocidad;
     int angulo;
     float friccion;
+    QPolygon poligono;
 };
 
 #endif // JUGADOR_H

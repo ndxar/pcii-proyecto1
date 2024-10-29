@@ -12,6 +12,9 @@ public:
 
     void subdividir() override;
 
+    bool esGrande() override {return 0;}
+    TipoObjeto tipo() const override { return TipoObjeto::As_Mediano; }
+
     virtual ~As_Mediano() { }
 };
 

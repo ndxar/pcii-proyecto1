@@ -12,6 +12,8 @@ public:
 
     virtual void subdividir() = 0;
 
+    bool hayQueDividir() override {return 1;};
+
     virtual ~As_Subdivisible() { }
 
 protected:

@@ -37,4 +37,4 @@ bool Proyectil::isAlive(float tiempoDeVida)
     }
 }
 
-Proyectil::~Proyectil() {}
+// Proyectil::~Proyectil() {}
