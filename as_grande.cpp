@@ -13,6 +13,7 @@ As_Grande::As_Grande(QVector2D posicion, QVector2D velocidad):
 
 void As_Grande::dibujar(QPainter* p)
 {
+    transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5);
     QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
     colisionable.setPoligono(colisionableTrans);
 

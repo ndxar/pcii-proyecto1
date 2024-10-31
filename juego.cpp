@@ -8,19 +8,22 @@ Juego::Juego()
     jugador = new Jugador(tablero->getCentro(),0.985,0);
     addObjeto(jugador);
 
-    As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(1,0.1));
-    addObjeto(as1);
-    As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
-    addObjeto(as2);
-    As_Grande* as3 = new As_Grande(QVector2D(500,0), QVector2D(0.5,-0.1));
-    addObjeto(as3);
-
-    // As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
+    // As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(1,0.1));
     // addObjeto(as1);
     // As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
     // addObjeto(as2);
-    // As_Chico* as3 = new As_Chico(QVector2D(500,0), QVector2D(0.5,-0.1));
+    // As_Grande* as3 = new As_Grande(QVector2D(500,0), QVector2D(0.5,-0.1));
     // addObjeto(as3);
+
+    // As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
+    // addObjeto(as1);
+    As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
+    addObjeto(as2);
+    As_Chico* as3 = new As_Chico(QVector2D(500,0), QVector2D(0.5,-0.1));
+    addObjeto(as3);
+    As_Grande* as4 = new As_Grande(QVector2D(100,500), QVector2D(-0.5,0.1));
+    addObjeto(as4);
+
 }
 
 
@@ -136,7 +139,8 @@ void Juego::addObjeto(ObjetoVolador* newObjeto)
         break;
     }
 
-    case TipoObjeto::As_Chico:{
+    {
+    case TipoObjeto::As_Chico:
 
     case TipoObjeto::As_Mediano:
 
@@ -146,6 +150,7 @@ void Juego::addObjeto(ObjetoVolador* newObjeto)
         lista_colisionables.append(newObjeto);
         lista_dibujables.append(newObjeto);
     }
+    break;
     }
 
 }
@@ -180,6 +185,7 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
         lista_colisionables.remove(lista_colisionables.indexOf(objeto));
         lista_dibujables.remove(lista_dibujables.indexOf(objeto));
         delete objeto;
+        qDebug() << "borre chico";
         break;
     }
 
