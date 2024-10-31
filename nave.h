@@ -7,7 +7,7 @@
 class Nave : public ObjetoVolador
 {
 public:
-    Nave();
+    Nave(QVector2D posicion, QVector2D velocidad);
 
     // void checkColision(QList<asteroide*> lista_asteroides);
 

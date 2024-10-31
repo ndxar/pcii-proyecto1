@@ -18,7 +18,7 @@ void As_Grande::dibujar(QPainter* p)
     // Poligono << QPoint(0,-10) << QPoint(6,-8) << QPoint(6,-6) << QPoint(10,0) << QPoint(6,8) << QPoint(2,8) << QPoint(0,10) << QPoint(-2,8) << QPoint(-6,8) << QPoint(-8,6) << QPoint(-8,2) << QPoint(-10,0) << QPoint(-4,-8) << QPoint(-6,-8) << QPoint(-4,-8);
 
     transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5);
-    QPolygon colisionableTrans = transformada.map( colisionable.getPolyShape() );
+    QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
     colisionable.setPoligono(colisionableTrans);
 
     // p->drawPolygon(transformada.map(poligono));

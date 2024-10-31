@@ -6,7 +6,7 @@
 class Ov_Grande : public Ovni
 {
 public:
-    Ov_Grande();
+    Ov_Grande(QVector2D posicion);
 
     TipoObjeto tipo() const override { return TipoObjeto::Ov_Grande; }
 };

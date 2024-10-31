@@ -6,7 +6,7 @@
 class Ov_Chico : public Ovni
 {
 public:
-    Ov_Chico();
+    Ov_Chico(QVector2D posicion);
 
     TipoObjeto tipo() const override { return TipoObjeto::Ov_Chico; }
 };

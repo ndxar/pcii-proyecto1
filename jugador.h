@@ -27,7 +27,7 @@ private:
     // QVector2D velocidad;
     int angulo;
     float friccion;
-    QPolygon poligono;
+    QPolygonF poligono;
 };
 
 #endif // JUGADOR_H

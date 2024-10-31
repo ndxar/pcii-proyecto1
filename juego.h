@@ -26,6 +26,8 @@ public:
     void rmvProyectil(Proyectil* bala);
     void addAsteroide(Asteroide* newAsteroide);
     void rmvAsteroide(Asteroide* asteroide);
+    void addObjeto(ObjetoVolador* newObjeto);
+    void rmvObjeto(ObjetoVolador* objeto);
 
     Jugador* getJugador();
 

@@ -6,7 +6,7 @@
 class Ovni : public Nave
 {
 public:
-    Ovni();
+    Ovni(QVector2D posicion, QVector2D velocidad);
 };
 
 #endif // OVNI_H

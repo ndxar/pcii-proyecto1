@@ -6,18 +6,18 @@ Colisionable::Colisionable()
 
 }
 
-Colisionable::Colisionable(QPolygon poligono)
+Colisionable::Colisionable(QPolygonF poligono)
 {
     this->polyShape = poligono;
     this->polyATM = poligono;
 }
 
-QPolygon Colisionable::getPoligono()
+QPolygonF Colisionable::getPoligono()
 {
     return polyATM;
 }
 
-QPolygon Colisionable::getPolyShape()
+QPolygonF Colisionable::getPolyShape()
 {
     return polyShape;
 }
@@ -27,12 +27,12 @@ bool Colisionable::estaColisionando(Colisionable objeto)
     return polyATM.intersects(objeto.getPoligono());
 }
 
-void Colisionable::setPoligono(QPolygon newPoly)
+void Colisionable::setPoligono(QPolygonF newPoly)
 {
     polyATM = newPoly;
 }
 
-void Colisionable::setPolyShape(QPolygon newPolyShape)
+void Colisionable::setPolyShape(QPolygonF newPolyShape)
 {
     polyShape = newPolyShape;
     polyATM = newPolyShape;

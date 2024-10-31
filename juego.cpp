@@ -57,6 +57,7 @@ void Juego::actualizarEstado(float time)
                     break;
                 case TipoObjeto::Proyectil:
                     qDebug() << "colision con proyectil";
+                    rmvObjeto(lista_colisionables[j]);
                     break;
                 case TipoObjeto::Jugador:
                     qDebug() << "colision con jugador";
@@ -98,6 +99,7 @@ void Juego::addProyectil(Proyectil* newBala)
 {
     lista_proyectiles.append(newBala);
     lista_dibujables.append(newBala);
+    lista_colisionables.append(newBala);
 }
 
 void Juego::rmvProyectil(Proyectil* bala)
@@ -121,4 +123,43 @@ void Juego::rmvAsteroide(Asteroide* asteroide)
     lista_colisionables.remove(lista_colisionables.indexOf(asteroide));
     lista_dibujables.remove(lista_dibujables.indexOf(asteroide));
     delete asteroide;
+}
+
+void Juego::addObjeto(ObjetoVolador* newObjeto)
+{
+    switch (newObjeto->tipo())
+    {
+    default:
+        break;
+
+    case TipoObjeto::Proyectil:
+        lista_dibujables.append(newObjeto);
+        lista_colisionables.append(newObjeto);
+        break;
+
+    case TipoObjeto::As_Chico:
+        break;
+
+    }
+
+}
+
+void Juego::rmvObjeto(ObjetoVolador* objeto)
+{
+    switch (objeto->tipo())
+    {
+    default:
+        break;
+
+    case TipoObjeto::Proyectil:
+        lista_proyectiles.remove(lista_proyectiles.indexOf(objeto));
+        lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+        delete objeto;
+        break;
+
+    case TipoObjeto::As_Chico:
+        break;
+
+    }
+
 }

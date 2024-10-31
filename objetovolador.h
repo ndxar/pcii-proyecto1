@@ -15,6 +15,7 @@ public:
     // ObjetoVolador(QVector2D posicion);
     ObjetoVolador(QVector2D posicion, QVector2D velocidad);
     ObjetoVolador();
+    virtual ~ObjetoVolador() {}
 
     virtual void actualizar(float time) = 0;
     void checkBordes(Tablero* tablero);
