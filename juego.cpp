@@ -6,9 +6,10 @@ Juego::Juego()
     lista_dibujables.append(tablero);
 
     jugador = new Jugador(tablero->getCentro(),0.985);
-    lista_colisionables.append(jugador);
-    lista_dibujables.append(jugador);
-    lista_jugadores.append(jugador);
+    // lista_colisionables.append(jugador);
+    // lista_dibujables.append(jugador);
+    // lista_jugadores.append(jugador);
+    addObjeto(jugador);
 
     As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(0.1,0.1));
 
@@ -104,9 +105,10 @@ void Juego::addObjeto(ObjetoVolador* newObjeto)
     case TipoObjeto::Jugador:
     {
         Jugador* newJugador = dynamic_cast <Jugador*>(newObjeto);
-        lista_jugadores.append(newJugador);
         lista_colisionables.append(newObjeto);
         lista_dibujables.append(newObjeto);
+        lista_jugadores.append(newJugador);
+        break;
     }
 
     case TipoObjeto::Proyectil:
