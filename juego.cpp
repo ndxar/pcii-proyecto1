@@ -72,7 +72,7 @@ void Juego::actualizarEstado(float time)
                 case TipoObjeto::Jugador:
                     rmvObjeto(lista_colisionables[j]);      //remuevo jugador
                     rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
-                    addObjeto( new Jugador(tablero->getCentro(),0.985, 5000) );
+                    addObjeto( new Jugador(tablero->getCentro(),0.985, 3000) );     //creo jugador nuevo con 3segundos de invencibilidad
                     qDebug() << "colision con jugador";
                     break;
                 case TipoObjeto::Ov_Chico:
