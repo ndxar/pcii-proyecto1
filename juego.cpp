@@ -38,7 +38,7 @@ void Juego::actualizarEstado(float time)
         }
         else
         {
-            rmvProyectil(lista_proyectiles[i]);
+            rmvObjeto(lista_proyectiles[i]);
         }
     }
 
@@ -154,6 +154,7 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
     case TipoObjeto::Proyectil:
         lista_proyectiles.remove(lista_proyectiles.indexOf(objeto));
         lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+        lista_colisionables.remove(lista_colisionables.indexOf(objeto));
         delete objeto;
         break;
 
