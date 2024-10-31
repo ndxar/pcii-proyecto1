@@ -60,8 +60,8 @@ void Jugador::rotar(int deltaAngulo)
 
 void Jugador::actualizar(float time)
 {
-    posicion.setX( posicion.x() + velocidad.x() * time );
-    posicion.setY( posicion.y() + velocidad.y() * time );
+    posicion.setX( posicion.x() + velocidad.x() * time);
+    posicion.setY( posicion.y() + velocidad.y() * time);
 
     // QTransform transformada = QTransform().translate(velocidad.x() * time,velocidad.y() * time);
     // colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
