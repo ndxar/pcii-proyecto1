@@ -2,10 +2,11 @@
 
 #include "jugador.h"
 
-Jugador::Jugador(QVector2D posicion, float friccion) :
+Jugador::Jugador(QVector2D posicion, float friccion, int tiempoInvencible) :
     Nave(posicion, QVector2D(0,0))
 {
     this->friccion = friccion;
+    this->tiempoInvencible = tiempoInvencible;
 
     QPolygonF poly;
     poly << QPointF(-40,-20) << QPointF(40,-20) << QPointF(40,-10) << QPointF(10,10) << QPointF(0,50) << QPointF(-10,10) << QPointF(-40,-10);
@@ -68,6 +69,8 @@ void Jugador::actualizar(float time)
 
     velocidad.setX( velocidad.x() * friccion);
     velocidad.setY( velocidad.y() * friccion);
+
+    timerInvencible = timerInvencible + time;
 }
 
 QVector2D Jugador::getDireccion()
@@ -82,9 +85,12 @@ Proyectil* Jugador::disparar()
     return newBala;
 }
 
-void Jugador::morir(QVector2D posicion)
+
+bool Jugador::esInvencible()
 {
-    this->posicion = posicion;
-    this->velocidad = QVector2D(0,0);
-    this->angulo = 180;
+    if (timerInvencible <= tiempoInvencible)
+    {
+        return 1;
+    }
+    else { return 0; }
 }

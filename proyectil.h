@@ -19,6 +19,7 @@ public:
 
     bool isAlive(float tiempoDeVida);
     TipoObjeto tipo() const override { return TipoObjeto::Proyectil; }
+    bool esInvencible() override {return 0;}
 
 
 protected:

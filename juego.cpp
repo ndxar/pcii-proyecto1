@@ -5,28 +5,36 @@ Juego::Juego()
     tablero = new Tablero(QVector2D(0, 0), QVector2D(500, 700));
     lista_dibujables.append(tablero);
 
-    jugador = new Jugador(tablero->getCentro(),0.985);
-    // lista_colisionables.append(jugador);
-    // lista_dibujables.append(jugador);
-    // lista_jugadores.append(jugador);
+    jugador = new Jugador(tablero->getCentro(),0.985,0);
     addObjeto(jugador);
 
     As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(0.1,0.1));
-
     addObjeto(as1);
+    As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
+    addObjeto(as2);
+    As_Grande* as3 = new As_Grande(QVector2D(500,0), QVector2D(0.5,-0.1));
+    addObjeto(as3);
 }
 
 
 Juego::~Juego()
 {
     delete tablero;
-    delete jugador;
+    for (int i=0; i<lista_jugadores.length(); i++)
+    {
+        rmvObjeto(lista_jugadores[i]);
+    }
 }
 
 void Juego::actualizarEstado(float time)
 {
-    jugador->actualizar(time);
-    jugador->checkBordes(tablero);
+    for (int i=0; i<lista_jugadores.length(); i++)
+    {
+        lista_jugadores[i]->actualizar(time);
+        lista_jugadores[i]->checkBordes(tablero);
+    }
+    // jugador->actualizar(time);
+    // jugador->checkBordes(tablero);
 
 
     for (int i=0; i<lista_proyectiles.length(); i++)
@@ -49,7 +57,8 @@ void Juego::actualizarEstado(float time)
 
         for (int j=0; j<lista_colisionables.length(); j++)
         {
-            if (lista_colisionables[j]->getColisionable().estaColisionando(lista_asteroides[i]->getColisionable()))
+            if (lista_colisionables[j]->getColisionable().estaColisionando(lista_asteroides[i]->getColisionable())
+                && lista_colisionables[j]->esInvencible() == 0)
             {
                 switch (lista_colisionables[j]->tipo())
                 {
@@ -61,9 +70,9 @@ void Juego::actualizarEstado(float time)
                     qDebug() << "dos nuevos proyectiles medianos";
                     break;
                 case TipoObjeto::Jugador:
-                    rmvObjeto(lista_colisionables[j]);
-                    rmvObjeto(lista_asteroides[i]);
-                    getJugadores()[0]->morir(tablero->getCentro());
+                    rmvObjeto(lista_colisionables[j]);      //remuevo jugador
+                    rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
+                    addObjeto( new Jugador(tablero->getCentro(),0.985, 5000) );
                     qDebug() << "colision con jugador";
                     break;
                 case TipoObjeto::Ov_Chico:
@@ -139,6 +148,13 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
     switch (objeto->tipo())
     {
     default:
+        break;
+
+    case TipoObjeto::Jugador:
+        lista_jugadores.remove(lista_jugadores.indexOf(objeto));
+        lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+        lista_colisionables.remove(lista_colisionables.indexOf(objeto));
+        delete objeto;
         break;
 
     case TipoObjeto::Proyectil:

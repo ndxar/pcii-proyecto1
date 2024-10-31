@@ -8,10 +8,11 @@ class Asteroide : public ObjetoVolador
 public:
     Asteroide();
 
-    void actualizar(float time);
+    void actualizar(float time) override;
 
     virtual bool hayQueDividir() = 0;
     virtual bool esGrande() = 0;
+    bool esInvencible() override {return 0;}
 
     virtual ~Asteroide() { }
 

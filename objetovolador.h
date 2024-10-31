@@ -23,6 +23,7 @@ public:
     QVector2D getPosicion() {return posicion;}
     QVector2D getVelocidad() {return velocidad;}
     virtual TipoObjeto tipo() const = 0;
+    virtual bool esInvencible() = 0;
 
     Colisionable getColisionable() {return colisionable;}
 
