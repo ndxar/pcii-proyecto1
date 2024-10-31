@@ -10,9 +10,6 @@ public:
 
     void dibujar(QPainter* p) override;
 
-    void subdividir() override;
-
-    bool esGrande() override {return 1;}
     TipoObjeto tipo() const override { return TipoObjeto::As_Grande; }
 
 protected:

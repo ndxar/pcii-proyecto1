@@ -1,6 +1,7 @@
 #include "asteroide.h"
 
-Asteroide::Asteroide()
+Asteroide::Asteroide(QVector2D posicion, QVector2D velocidad):
+ObjetoVolador(posicion, velocidad)
 {
 
 }

@@ -6,11 +6,15 @@
 class As_Chico : public Asteroide
 {
 public:
-    As_Chico();
+    As_Chico(QVector2D posicion, QVector2D velocidad);
 
     bool hayQueDividir() override {return 0;};
+    void dibujar(QPainter *p) override;
 
     TipoObjeto tipo() const override { return TipoObjeto::As_Chico; }
+
+protected:
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).scale(3,3);
 };
 
 #endif // AS_CHICO_H

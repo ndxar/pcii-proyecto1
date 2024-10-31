@@ -2,18 +2,25 @@
 
 Juego::Juego()
 {
-    tablero = new Tablero(QVector2D(0, 0), QVector2D(500, 700));
+    tablero = new Tablero(QVector2D(0, 0), QVector2D(700, 900));
     lista_dibujables.append(tablero);
 
     jugador = new Jugador(tablero->getCentro(),0.985,0);
     addObjeto(jugador);
 
-    As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(0.1,0.1));
+    As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(1,0.1));
     addObjeto(as1);
     As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
     addObjeto(as2);
     As_Grande* as3 = new As_Grande(QVector2D(500,0), QVector2D(0.5,-0.1));
     addObjeto(as3);
+
+    // As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
+    // addObjeto(as1);
+    // As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
+    // addObjeto(as2);
+    // As_Chico* as3 = new As_Chico(QVector2D(500,0), QVector2D(0.5,-0.1));
+    // addObjeto(as3);
 }
 
 

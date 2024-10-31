@@ -10,12 +10,12 @@ public:
 
     void dibujar(QPainter* p) override;
 
-    void subdividir() override;
-
-    bool esGrande() override {return 0;}
     TipoObjeto tipo() const override { return TipoObjeto::As_Mediano; }
 
     virtual ~As_Mediano() { }
+
+protected:
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).scale(4,4);
 };
 
 #endif // AS_MEDIANO_H
