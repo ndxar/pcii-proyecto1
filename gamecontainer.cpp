@@ -35,7 +35,7 @@ void gameContainer::keyPressEvent(QKeyEvent* event) {
     {
         case Qt::Key_Up :
             // qDebug() << "aprete arriba :D CASE";
-            juego->getJugador()->setVelocidad(0.3);
+            juego->getJugadores()[0]->setVelocidad(0.3);
             break;
 
         case Qt::Key_Down :
@@ -44,17 +44,17 @@ void gameContainer::keyPressEvent(QKeyEvent* event) {
 
         case Qt::Key_Right :
             // qDebug() << "aprete der CASE";
-            juego->getJugador()->rotar(5);
+            juego->getJugadores()[0]->rotar(5);
             break;
 
         case Qt::Key_Left :
             // qDebug() << "aprete izq CASE";
-            juego->getJugador()->rotar(-5);
+            juego->getJugadores()[0]->rotar(-5);
             break;
 
         case Qt::Key_Space :
             // qDebug() << "aprete space CASE";
-            juego->addObjeto( juego->getJugador()->disparar() );
+            juego->addObjeto( juego->getJugadores()[0]->disparar() );
             break;
 
         case Qt::Key_E :

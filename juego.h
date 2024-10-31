@@ -29,7 +29,7 @@ public:
     void addObjeto(ObjetoVolador* newObjeto);
     void rmvObjeto(ObjetoVolador* objeto);
 
-    Jugador* getJugador();
+    QList<Jugador*> getJugadores();
 
 protected:
     Tablero* tablero;
@@ -39,6 +39,7 @@ protected:
     QList<Proyectil*> lista_proyectiles;
     QList<Asteroide*> lista_asteroides;
     QList<ObjetoVolador*> lista_colisionables;
+    QList<Jugador*> lista_jugadores;
 
 };
 

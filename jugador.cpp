@@ -81,3 +81,10 @@ Proyectil* Jugador::disparar()
     Proyectil* newBala = new Proyectil(this, posicion, getDireccion(), 0.9);
     return newBala;
 }
+
+void Jugador::morir(QVector2D posicion)
+{
+    this->posicion = posicion;
+    this->velocidad = QVector2D(0,0);
+    this->angulo = 180;
+}

@@ -21,6 +21,7 @@ public:
     QVector2D getDireccion();
     float getAngRad();
     TipoObjeto tipo() const override { return TipoObjeto::Jugador; }
+    void morir(QVector2D posicion);
 
 private:
     // QVector2D posicion;

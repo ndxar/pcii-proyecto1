@@ -8,6 +8,7 @@ Juego::Juego()
     jugador = new Jugador(tablero->getCentro(),0.985);
     lista_colisionables.append(jugador);
     lista_dibujables.append(jugador);
+    lista_jugadores.append(jugador);
 
     As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(0.1,0.1));
 
@@ -61,6 +62,7 @@ void Juego::actualizarEstado(float time)
                 case TipoObjeto::Jugador:
                     rmvObjeto(lista_colisionables[j]);
                     rmvObjeto(lista_asteroides[i]);
+                    getJugadores()[0]->morir(tablero->getCentro());
                     qDebug() << "colision con jugador";
                     break;
                 case TipoObjeto::Ov_Chico:
@@ -75,11 +77,7 @@ void Juego::actualizarEstado(float time)
             }
         }
 
-
-
     }
-
-
 
 }
 
@@ -91,9 +89,9 @@ void Juego::dibujar(QPainter* p) {
     }
 }
 
-Jugador* Juego::getJugador()
+QList<Jugador*> Juego::getJugadores()
 {
-    return jugador;
+    return lista_jugadores;
 }
 
 void Juego::addObjeto(ObjetoVolador* newObjeto)
@@ -102,6 +100,14 @@ void Juego::addObjeto(ObjetoVolador* newObjeto)
     {
     default:
         break;
+
+    case TipoObjeto::Jugador:
+    {
+        Jugador* newJugador = dynamic_cast <Jugador*>(newObjeto);
+        lista_jugadores.append(newJugador);
+        lista_colisionables.append(newObjeto);
+        lista_dibujables.append(newObjeto);
+    }
 
     case TipoObjeto::Proyectil:
     {
