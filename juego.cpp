@@ -36,15 +36,16 @@ Juego::~Juego()
 
 void Juego::actualizarEstado(float time)
 {
+    // ACTUALIZAR JUGADORES
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i=0; i<lista_jugadores.length(); i++)
     {
         lista_jugadores[i]->actualizar(time);
         lista_jugadores[i]->checkBordes(tablero);
     }
-    // jugador->actualizar(time);
-    // jugador->checkBordes(tablero);
 
-
+    //ACTUALIZAR PROYECTILES
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i=0; i<lista_proyectiles.length(); i++)
     {
         if (lista_proyectiles[i]->isAlive(500))                                     //proyectiles duran 500ms
@@ -58,6 +59,12 @@ void Juego::actualizarEstado(float time)
         }
     }
 
+    //ACTUALIZAR ASTEROIDES Y CHEQUEAR SUS COLISIONES CON JUG., OVNI, PROYEC.
+    //NOTA: el chequeo de colisiones quizá convenga pasarlo a su propio lado, ya que si, p.ej., un jugador
+    //      colisiona con con powerup u ovni, no lo estaría detectando :(
+    //PD:   qué es un powerup??? :$
+    //PPD:  convendría chequear el resto de colisiones en un iterador de cada objeto O un iterador de todos los colisionables?
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i=0; i<lista_asteroides.length(); i++)
     {
         lista_asteroides[i]->checkBordes(tablero);
@@ -71,7 +78,7 @@ void Juego::actualizarEstado(float time)
                 switch (lista_colisionables[j]->tipo())
                 {
                 default:        // si colisiono con algo que no sea proyectil, jugador, ovni chico o grande, ignoro, no hago anda
-                    break;
+                    break;      // facilmente ampliable a más cosas TipoObjeto en un futuro, como powerups.
 
                 case TipoObjeto::Jugador:
                     addObjeto( new Jugador(tablero->getCentro(),0.985, 3000) );     //creo jugador nuevo con 3segundos de invencibilidad
@@ -81,9 +88,24 @@ void Juego::actualizarEstado(float time)
                 case TipoObjeto::Ov_Grande:
 
                 case TipoObjeto::Proyectil:
+                    switch ( lista_asteroides[i]->tipo() )
+                    {
+                    default:
+                        break;
+                    case TipoObjeto::As_Grande:
+                        addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion(), -lista_asteroides[i]->getVelocidad()) );
+                        break;
+
+                    case TipoObjeto::As_Mediano:
+                        qDebug() << "2 chicos";
+                        break;
+                    }
+
                     rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
                     rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
+
                     break;
+
                 }
 
 
@@ -91,6 +113,8 @@ void Juego::actualizarEstado(float time)
         }
 
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
 
@@ -178,7 +202,6 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
         lista_colisionables.remove(lista_colisionables.indexOf(objeto));
         lista_dibujables.remove(lista_dibujables.indexOf(objeto));
         delete objeto;
-        qDebug() << "borre chico";
         break;
     }
 
