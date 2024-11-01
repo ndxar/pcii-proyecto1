@@ -12,6 +12,7 @@ As_Mediano::As_Mediano(QVector2D posicion, QVector2D velocidad):
 
 void As_Mediano::dibujar(QPainter* p)
 {
+    transformada = QTransform().translate(posicion.x(),posicion.y()).scale(4,4);
     QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
     colisionable.setPoligono(colisionableTrans);
 
