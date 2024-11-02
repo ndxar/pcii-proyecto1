@@ -42,7 +42,6 @@ void Jugador::setVelocidad(float newVelocidad)
     if (newVelocidad > 0)
         {
         velocidad = QVector2D(-newVelocidad*sin(this->getAngRad()),newVelocidad*cos(this->getAngRad()));
-        qDebug() << velocidad;
         }
     else { velocidad = QVector2D(0,0); }
 }
@@ -70,10 +69,6 @@ void Jugador::actualizar(float time)
 
     if (abs(velocidad.x()) < 1e-2) { velocidad.setX(0); }
     if (abs(velocidad.y()) < 1e-2) { velocidad.setY(0); }
-
-    qDebug() << "x: " << velocidad.x();
-    qDebug() << "y: " << velocidad.y();
-    qDebug() << "t: " << time;
 
     timerInvencible = timerInvencible + time;
 }

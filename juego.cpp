@@ -12,11 +12,11 @@ Juego::Juego()
     // As_Grande* as3 = new As_Grande(QVector2D(500,0), QVector2D(0.5,-0.1));
     // addObjeto(as3);
 
-    As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
-    addObjeto(as1);
+    // As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
+    // addObjeto(as1);
     As_Grande* as2 = new As_Grande(QVector2D(100,500));
     addObjeto(as2);
-    As_Chico* as3 = new As_Chico(QVector2D(500,0));
+    As_Chico* as3 = new As_Chico(QVector2D(1000,0));
     addObjeto(as3);
 
     jugador = new Jugador(tablero->getCentro(),0);
@@ -72,6 +72,9 @@ void Juego::actualizarEstado(float time)
 
         for (int j=0; j<lista_colisionables.length(); j++)
         {
+            if (i > (lista_asteroides.length() - 1) || j > lista_colisionables.length()) { break; } //NO es buena práctica, pero cuando saco un elemento
+                                                                                                    //puedo irme del indice, y con esto me aseguro de quedarme
+
             if (lista_colisionables[j]->getColisionable().estaColisionando(lista_asteroides[i]->getColisionable())
                 && lista_colisionables[j]->esInvencible() == 0)
             {
