@@ -7,6 +7,7 @@ class As_Subdivisible : public Asteroide
 {
 public:
     As_Subdivisible(QVector2D posicion, QVector2D velocidad);
+    As_Subdivisible(QVector2D posicion, float velMagnitud);
 
     // void dibujar(QPainter* p) override;
 

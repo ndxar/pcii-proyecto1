@@ -7,6 +7,7 @@ class As_Mediano : public As_Subdivisible
 {
 public:
     As_Mediano(QVector2D posicion, QVector2D direccion);
+    As_Mediano(QVector2D posicion, float velMagnitud = 0.2);
 
     void dibujar(QPainter* p) override;
 

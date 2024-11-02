@@ -19,6 +19,7 @@ public:
 
     virtual void actualizar(float time) = 0;
     void checkBordes(Tablero* tablero);
+    void rotar(int deltaAngulo);
 
     QVector2D getPosicion() {return posicion;}
     QVector2D getVelocidad() {return velocidad;}

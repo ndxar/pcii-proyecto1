@@ -7,6 +7,7 @@ class As_Grande : public As_Subdivisible
 {
 public:
     As_Grande(QVector2D posicion, QVector2D velocidad);
+    As_Grande(QVector2D posicion, float velMagnitud = 0.1);
 
     void dibujar(QPainter* p) override;
 

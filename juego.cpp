@@ -14,12 +14,12 @@ Juego::Juego()
 
     As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
     addObjeto(as1);
-    As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
+    As_Grande* as2 = new As_Grande(QVector2D(100,500));
     addObjeto(as2);
-    As_Chico* as3 = new As_Chico(QVector2D(500,0), QVector2D(0.5,-0.1));
+    As_Chico* as3 = new As_Chico(QVector2D(500,0));
     addObjeto(as3);
 
-    jugador = new Jugador(tablero->getCentro(),0.985,0);
+    jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
 
 }
@@ -81,7 +81,7 @@ void Juego::actualizarEstado(float time)
                     break;      // facilmente ampliable a más cosas TipoObjeto en un futuro, como powerups.
 
                 case TipoObjeto::Jugador:
-                    addObjeto( new Jugador(tablero->getCentro(),0.985, 3000) );     //creo jugador nuevo con 3segundos de invencibilidad
+                    addObjeto( new Jugador(tablero->getCentro(), 3000) );     //creo jugador nuevo con 3segundos de invencibilidad
 
                 case TipoObjeto::Ov_Chico:
 
@@ -93,11 +93,15 @@ void Juego::actualizarEstado(float time)
                     default:
                         break;
                     case TipoObjeto::As_Grande:
-                        addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion(), -lista_asteroides[i]->getVelocidad()) );
+                        {
+                        addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
+                        addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
                         break;
+                        }
 
                     case TipoObjeto::As_Mediano:
-                        qDebug() << "2 chicos";
+                        addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
+                        addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
                         break;
                     }
 

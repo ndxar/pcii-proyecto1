@@ -7,7 +7,7 @@
 class Jugador : public Nave
 {
 public:
-    Jugador(QVector2D posicion, float friccion, int tiempoInvencible = 0);
+    Jugador(QVector2D posicion, int tiempoInvencible = 0, float friccion = 1.002);
 
     Proyectil* disparar();
     void dibujar(QPainter* p) override;
@@ -15,11 +15,13 @@ public:
 
     void rotar(int deltaAngulo);
     void setVelocidad(float newVelocidad);
+    void setFriccion(float newFriccion);
 
     QVector2D getPosicion();
     QVector2D getVelocidad();
     QVector2D getDireccion();
     float getAngRad();
+
     TipoObjeto tipo() const override { return TipoObjeto::Jugador; }
     bool esInvencible() override;
 
@@ -27,11 +29,11 @@ public:
 private:
     // QVector2D posicion;
     // QVector2D velocidad;
-    int angulo;
     float friccion;
     QPolygonF poligono;
     int tiempoInvencible;
     int timerInvencible = 0;
+    int angulo = 180;
 };
 
 #endif // JUGADOR_H

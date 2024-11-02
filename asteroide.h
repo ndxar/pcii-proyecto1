@@ -7,6 +7,7 @@ class Asteroide : public ObjetoVolador
 {
 public:
     Asteroide(QVector2D posicion, QVector2D velocidad);
+    Asteroide(QVector2D posicion, float velMagnitud);
 
     void actualizar(float time) override;
 
@@ -17,6 +18,7 @@ public:
 
 protected:
     QPolygon poligono;
+    float velMagnitud;
 
 };
 

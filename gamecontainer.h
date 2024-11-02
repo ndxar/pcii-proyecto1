@@ -19,7 +19,7 @@ public:
 
 protected:
     Juego* juego;
-    float refresco_ms = 10;
+    float refresco_ms = 1 ;
 
     QTimer timer;
 

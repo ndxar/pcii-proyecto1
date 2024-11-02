@@ -5,3 +5,9 @@ Asteroide(posicion, velocidad)
 {
 
 }
+
+As_Subdivisible::As_Subdivisible(QVector2D posicion, float velMagnitud ) :
+    Asteroide(posicion,velMagnitud)
+{
+
+}

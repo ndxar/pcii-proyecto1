@@ -2,7 +2,7 @@
 
 #include "jugador.h"
 
-Jugador::Jugador(QVector2D posicion, float friccion, int tiempoInvencible) :
+Jugador::Jugador(QVector2D posicion, int tiempoInvencible, float friccion) :
     Nave(posicion, QVector2D(0,0))
 {
     this->friccion = friccion;
@@ -15,7 +15,6 @@ Jugador::Jugador(QVector2D posicion, float friccion, int tiempoInvencible) :
     QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
     this->colisionable.setPolyShape(poly);
     this->colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
-    this->angulo = 180;
 }
 
 void Jugador::dibujar(QPainter* p)
@@ -28,19 +27,14 @@ void Jugador::dibujar(QPainter* p)
     colisionable.setPoligono( colisionableTrans );
 
     //dibuja el poligono del colisionable
-    p->drawPolygon(colisionable.getPoligono());
+    // p->drawPolygon(colisionable.getPoligono());
 
 
 
     //dibuja el poligono del modelo que ve el usuario
-    // p->drawPolygon(transformada.map(poligono));
+    p->drawPolygon(transformada.map(poligono));
 
 
-}
-
-float Jugador::getAngRad()
-{
-    return angulo*3.14159/180;
 }
 
 void Jugador::setVelocidad(float newVelocidad)
@@ -56,7 +50,11 @@ void Jugador::setVelocidad(float newVelocidad)
 void Jugador::rotar(int deltaAngulo)
 {
     angulo = angulo+deltaAngulo;
-    // angulo = deltaAngulo;
+}
+
+float Jugador::getAngRad()
+{
+    return angulo*3.14159/180;
 }
 
 void Jugador::actualizar(float time)
@@ -67,8 +65,15 @@ void Jugador::actualizar(float time)
     // QTransform transformada = QTransform().translate(velocidad.x() * time,velocidad.y() * time);
     // colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
 
-    velocidad.setX( velocidad.x() * friccion);
-    velocidad.setY( velocidad.y() * friccion);
+    velocidad.setX( (velocidad.x() / friccion) * time);
+    velocidad.setY( (velocidad.y() / friccion) * time);
+
+    if (abs(velocidad.x()) < 1e-2) { velocidad.setX(0); }
+    if (abs(velocidad.y()) < 1e-2) { velocidad.setY(0); }
+
+    qDebug() << "x: " << velocidad.x();
+    qDebug() << "y: " << velocidad.y();
+    qDebug() << "t: " << time;
 
     timerInvencible = timerInvencible + time;
 }
@@ -93,4 +98,9 @@ bool Jugador::esInvencible()
         return 1;
     }
     else { return 0; }
+}
+
+void Jugador::setFriccion(float newFriccion)
+{
+    friccion = newFriccion;
 }
