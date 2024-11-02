@@ -22,9 +22,10 @@ Juego::Juego()
     jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
 
-    lista_dibujables.append( new Ov_Chico(tablero->getCentro()) );
-    lista_dibujables.append( new Ov_Grande(QVector2D(500,500)) );
-
+    Ovni* ov1 = new Ov_Chico(tablero->getCentro());
+    Ovni* ov2 = new Ov_Grande(QVector2D(500,500));
+    addObjeto(ov1);
+    addObjeto(ov2);
 }
 
 
@@ -60,6 +61,14 @@ void Juego::actualizarEstado(float time)
         {
             rmvObjeto(lista_proyectiles[i]);
         }
+    }
+
+    //ACTUALIZAR OVNIS
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    for (int i=0;i<lista_ovnis.length();i++)
+    {
+        lista_ovnis[i]->actualizar(time);
+        lista_ovnis[i]->checkBordes(tablero);
     }
 
     //ACTUALIZAR ASTEROIDES Y CHEQUEAR SUS COLISIONES CON JUG., OVNI, PROYEC.
@@ -104,9 +113,11 @@ void Juego::actualizarEstado(float time)
                                 }
 
                             case TipoObjeto::As_Mediano:
+                                {
                                 addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
                                 addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
                                 break;
+                                }
                         }
 
                         rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
@@ -124,14 +135,11 @@ void Juego::actualizarEstado(float time)
 
     //chquear si hay <= 3 asteroides y spawnear un ovni
 
-    //OVNIS
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 }
 
 void Juego::dibujar(QPainter* p) {
 
-    for (int i =0; i<lista_dibujables.length(); i++)
+    for (int i = 0; i<lista_dibujables.length(); i++)
     {
         lista_dibujables[i]->dibujar(p);
     }
@@ -180,10 +188,10 @@ void Juego::addObjeto(ObjetoVolador* newObjeto)
         }
         break;
 
-        case TipoObjeto::Ov_Chico:
         {
-        case TipoObjeto::Ov_Grande:
+        case TipoObjeto::Ov_Chico:
 
+        case TipoObjeto::Ov_Grande:
             Ovni* newOvni = dynamic_cast <Ovni*>(newObjeto);
             lista_ovnis.append(newOvni);
             lista_colisionables.append(newObjeto);

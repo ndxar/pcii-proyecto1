@@ -7,6 +7,7 @@ class Ovni : public Nave
 {
 public:
     Ovni(QVector2D posicion, QVector2D velocidad);
+    virtual ~Ovni() {}
 
     bool esInvencible() override {return 0; }
     int getTimeSinceLastShot() {return timeSinceLastShot; };
