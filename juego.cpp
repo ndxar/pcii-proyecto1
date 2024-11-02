@@ -72,51 +72,49 @@ void Juego::actualizarEstado(float time)
 
         for (int j=0; j<lista_colisionables.length(); j++)
         {
-            if (i > (lista_asteroides.length() - 1) || j > lista_colisionables.length()) { break; } //NO es buena práctica, pero cuando saco un elemento
-                                                                                                    //puedo irme del indice, y con esto me aseguro de quedarme
 
             if (lista_colisionables[j]->getColisionable().estaColisionando(lista_asteroides[i]->getColisionable())
                 && lista_colisionables[j]->esInvencible() == 0)
             {
                 switch (lista_colisionables[j]->tipo())
                 {
-                default:        // si colisiono con algo que no sea proyectil, jugador, ovni chico o grande, ignoro, no hago anda
-                    break;      // facilmente ampliable a más cosas TipoObjeto en un futuro, como powerups.
+                    default:        // si colisiono con algo que no sea proyectil, jugador, ovni chico o grande, ignoro, no hago anda
+                        break;      // facilmente ampliable a más cosas TipoObjeto en un futuro, como powerups.
 
-                case TipoObjeto::Jugador:
-                    addObjeto( new Jugador(tablero->getCentro(), 3000) );     //creo jugador nuevo con 3segundos de invencibilidad
+                    case TipoObjeto::Jugador:
+                        addObjeto( new Jugador(tablero->getCentro(), 3000) );     //creo jugador nuevo con 3segundos de invencibilidad
 
-                case TipoObjeto::Ov_Chico:
+                    case TipoObjeto::Ov_Chico:
 
-                case TipoObjeto::Ov_Grande:
+                    case TipoObjeto::Ov_Grande:
 
-                case TipoObjeto::Proyectil:
-                    switch ( lista_asteroides[i]->tipo() )
-                    {
-                    default:
-                        break;
-                    case TipoObjeto::As_Grande:
+                    case TipoObjeto::Proyectil:
+                        switch ( lista_asteroides[i]->tipo() )
                         {
-                        addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
-                        addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
-                        break;
+                            default:
+                                break;
+                            case TipoObjeto::As_Grande:
+                                {
+                                addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
+                                addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
+                                break;
+                                }
+
+                            case TipoObjeto::As_Mediano:
+                                addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
+                                addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
+                                break;
                         }
 
-                    case TipoObjeto::As_Mediano:
-                        addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
-                        addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
+                        rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
+                        rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
+
                         break;
-                    }
-
-                    rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
-                    rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
-
-                    break;
-
                 }
-
-
             }
+            if (i > (lista_asteroides.length() - 1)) { break; } //NO es buena práctica, pero cuando saco el último elemento
+                                                                //puedo irme del indice, y con esto me aseguro de quedarme
+                                                                //dentro del rango
         }
 
     }
