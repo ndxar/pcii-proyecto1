@@ -3,25 +3,17 @@
 Ov_Chico::Ov_Chico(QVector2D posicion) :
     Ovni(posicion, QVector2D(0,0))
 {
+    QPolygonF bottom;
+    QPolygonF top;
+    QPolygonF outline;
+    bottom << QPointF(-8,0) << QPointF(-6,-2) << QPointF(6,-2) << QPointF(8,0) << QPointF(4,2) << QPointF(-4,2);
+    top << QPointF(-4,2) << QPointF(-2,4) << QPointF(2,4) << QPointF(4,2);
+    outline << QPointF(-8,0) << QPointF(-6,-2) << QPointF(6,-2) << QPointF(8,0) << QPointF(4,2) << QPointF(2,4) << QPointF(-2,4) << QPointF(-4,2);
+    this->poligono = top.united(bottom);
+
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5).rotate(180);
+    this->colisionable.setPolyShape(outline);
+    this->colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
 
 }
 
-void Ov_Chico::dibujar(QPainter* p)
-{
-    // poligono << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
-    QTransform transformada = QTransform().translate(posicion.x(),posicion.y());
-
-    //transformo el colisionable
-    QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
-    colisionable.setPoligono( colisionableTrans );
-
-    //dibuja el poligono del colisionable
-    // p->drawPolygon(colisionable.getPoligono());
-
-
-
-    //dibuja el poligono del modelo que ve el usuario
-    p->drawPolygon(transformada.map(poligono));
-
-
-}

@@ -47,6 +47,7 @@ HEADERS += \
     ovni.h \
     proyectil.h \
     tablero.h \
+    tipoEvento.h \
     tipoObjeto.h
 
 FORMS += \

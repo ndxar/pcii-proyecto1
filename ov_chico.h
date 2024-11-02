@@ -9,7 +9,7 @@ public:
     Ov_Chico(QVector2D posicion);
 
     TipoObjeto tipo() const override { return TipoObjeto::Ov_Chico; }
-    void dibujar(QPainter *p) override;
+    // void dibujar(QPainter *p) override;
 };
 
 #endif // OV_CHICO_H

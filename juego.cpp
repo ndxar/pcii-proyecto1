@@ -22,7 +22,8 @@ Juego::Juego()
     jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
 
-    lista_dibujables.append( new Ov_Grande(tablero->getCentro()) );
+    lista_dibujables.append( new Ov_Chico(tablero->getCentro()) );
+    lista_dibujables.append( new Ov_Grande(QVector2D(500,500)) );
 
 }
 

@@ -18,20 +18,3 @@ Ov_Grande::Ov_Grande(QVector2D posicion) :
     this->colisionable.setPolyShape(outline);
     this->colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
 }
-
-void Ov_Grande::dibujar(QPainter* p)
-{
-    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5).rotate(180);
-
-    //transformo el colisionable
-    QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
-    colisionable.setPoligono( colisionableTrans );
-
-    //dibuja el poligono del colisionable
-    p->drawPolygon(colisionable.getPoligono());
-
-    //dibuja el poligono del modelo que ve el usuario
-    // p->drawPolygon(transformada.map(poligono));
-
-
-}
