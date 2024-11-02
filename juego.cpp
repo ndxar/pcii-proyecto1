@@ -120,8 +120,12 @@ void Juego::actualizarEstado(float time)
                                 }
                         }
 
+
+                        qDebug() << "a";
                         rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
+                        qDebug() << "b";
                         rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
+                        qDebug() << "c";
 
                         break;
                 }
@@ -234,12 +238,18 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
             break;
 
         case TipoObjeto::Ov_Chico:
+            qDebug() << "ovc";
 
         case TipoObjeto::Ov_Grande:
-            lista_ovnis.remove(lista_asteroides.indexOf(objeto));
+            qDebug() << "ovg";
+            lista_ovnis.remove(lista_ovnis.indexOf(objeto));
+            qDebug() << "1";
             lista_colisionables.remove(lista_colisionables.indexOf(objeto));
+            qDebug() << "2";
             lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+            qDebug() << "3";
             delete objeto;
+            qDebug() << "4";
             break;
     }
 
