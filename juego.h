@@ -42,6 +42,7 @@ protected:
     QList<Asteroide*> lista_asteroides;
     QList<ObjetoVolador*> lista_colisionables;
     QList<Jugador*> lista_jugadores;
+    QList<Ovni*> lista_ovnis;
 
 };
 

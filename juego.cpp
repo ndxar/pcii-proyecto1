@@ -146,39 +146,49 @@ void Juego::addObjeto(ObjetoVolador* newObjeto)
 {
     switch (newObjeto->tipo())
     {
-    default:
+        default:
+            break;
+
+        case TipoObjeto::Jugador:
+        {
+            Jugador* newJugador = dynamic_cast <Jugador*>(newObjeto);
+            lista_colisionables.append(newObjeto);
+            lista_dibujables.append(newObjeto);
+            lista_jugadores.append(newJugador);
+            break;
+        }
+
+        case TipoObjeto::Proyectil:
+        {
+            Proyectil* newProyectil = dynamic_cast <Proyectil*>(newObjeto);
+            lista_proyectiles.append(newProyectil);
+            lista_dibujables.append(newObjeto);
+            lista_colisionables.append(newObjeto);
+            break;
+        }
+
+        {
+        case TipoObjeto::As_Chico:
+
+        case TipoObjeto::As_Mediano:
+
+        case TipoObjeto::As_Grande:
+            Asteroide* newAsteroide = dynamic_cast <Asteroide*>(newObjeto);
+            lista_asteroides.append(newAsteroide);
+            lista_colisionables.append(newObjeto);
+            lista_dibujables.append(newObjeto);
+        }
         break;
 
-    case TipoObjeto::Jugador:
-    {
-        Jugador* newJugador = dynamic_cast <Jugador*>(newObjeto);
-        lista_colisionables.append(newObjeto);
-        lista_dibujables.append(newObjeto);
-        lista_jugadores.append(newJugador);
-        break;
-    }
+        case TipoObjeto::Ov_Chico:
+        {
+        case TipoObjeto::Ov_Grande:
 
-    case TipoObjeto::Proyectil:
-    {
-        Proyectil* newProyectil = dynamic_cast <Proyectil*>(newObjeto);
-        lista_proyectiles.append(newProyectil);
-        lista_dibujables.append(newObjeto);
-        lista_colisionables.append(newObjeto);
-        break;
-    }
-
-    {
-    case TipoObjeto::As_Chico:
-
-    case TipoObjeto::As_Mediano:
-
-    case TipoObjeto::As_Grande:
-        Asteroide* newAsteroide = dynamic_cast <Asteroide*>(newObjeto);
-        lista_asteroides.append(newAsteroide);
-        lista_colisionables.append(newObjeto);
-        lista_dibujables.append(newObjeto);
-    }
-    break;
+            Ovni* newOvni = dynamic_cast <Ovni*>(newObjeto);
+            lista_ovnis.append(newOvni);
+            lista_colisionables.append(newObjeto);
+            lista_dibujables.append(newObjeto);
+        }
     }
 
 }
@@ -187,33 +197,42 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
 {
     switch (objeto->tipo())
     {
-    default:
-        break;
+        default:
+            break;
 
-    case TipoObjeto::Jugador:
-        lista_jugadores.remove(lista_jugadores.indexOf(objeto));
-        lista_dibujables.remove(lista_dibujables.indexOf(objeto));
-        lista_colisionables.remove(lista_colisionables.indexOf(objeto));
-        delete objeto;
-        break;
+        case TipoObjeto::Jugador:
+            lista_jugadores.remove(lista_jugadores.indexOf(objeto));
+            lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+            lista_colisionables.remove(lista_colisionables.indexOf(objeto));
+            delete objeto;
+            break;
 
-    case TipoObjeto::Proyectil:
-        lista_proyectiles.remove(lista_proyectiles.indexOf(objeto));
-        lista_dibujables.remove(lista_dibujables.indexOf(objeto));
-        lista_colisionables.remove(lista_colisionables.indexOf(objeto));
-        delete objeto;
-        break;
+        case TipoObjeto::Proyectil:
+            lista_proyectiles.remove(lista_proyectiles.indexOf(objeto));
+            lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+            lista_colisionables.remove(lista_colisionables.indexOf(objeto));
+            delete objeto;
+            break;
 
-    case TipoObjeto::As_Chico:
+        case TipoObjeto::As_Chico:
 
-    case TipoObjeto::As_Mediano:
+        case TipoObjeto::As_Mediano:
 
-    case TipoObjeto::As_Grande:
-        lista_asteroides.remove(lista_asteroides.indexOf(objeto));
-        lista_colisionables.remove(lista_colisionables.indexOf(objeto));
-        lista_dibujables.remove(lista_dibujables.indexOf(objeto));
-        delete objeto;
-        break;
+        case TipoObjeto::As_Grande:
+            lista_asteroides.remove(lista_asteroides.indexOf(objeto));
+            lista_colisionables.remove(lista_colisionables.indexOf(objeto));
+            lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+            delete objeto;
+            break;
+
+        case TipoObjeto::Ov_Chico:
+
+        case TipoObjeto::Ov_Grande:
+            lista_ovnis.remove(lista_asteroides.indexOf(objeto));
+            lista_colisionables.remove(lista_colisionables.indexOf(objeto));
+            lista_dibujables.remove(lista_dibujables.indexOf(objeto));
+            delete objeto;
+            break;
     }
 
 }

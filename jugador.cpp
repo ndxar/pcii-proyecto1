@@ -12,29 +12,28 @@ Jugador::Jugador(QVector2D posicion, int tiempoInvencible, float friccion) :
     poly << QPointF(-40,-20) << QPointF(40,-20) << QPointF(40,-10) << QPointF(10,10) << QPointF(0,50) << QPointF(-10,10) << QPointF(-40,-10);
     this->poligono = poly;
 
-    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
+    transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
     this->colisionable.setPolyShape(poly);
     this->colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
 }
 
 void Jugador::dibujar(QPainter* p)
 {
-    // poligono << QPoint(-40,-20) << QPoint(40,-20) << QPoint(40,-10) << QPoint(10,10) << QPoint(0,50) << QPoint(-10,10) << QPoint(-40,-10);
-    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
-
-    //transformo el colisionable
-    QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
-    colisionable.setPoligono( colisionableTrans );
-
-    //dibuja el poligono del colisionable
-    // p->drawPolygon(colisionable.getPoligono());
-
-
-
+    QPen Pen;
+    if (esInvencible())
+    {
+        Pen = QPen(Qt::gray);
+    }
+    else
+    {
+        Pen = QPen(Qt::black);
+    }
+    p->setPen(Pen);
     //dibuja el poligono del modelo que ve el usuario
     p->drawPolygon(transformada.map(poligono));
 
-
+    //dibuja el poligono del colisionable
+    // p->drawPolygon(colisionable.getPoligono());
 }
 
 void Jugador::setVelocidad(float newVelocidad)
@@ -71,6 +70,11 @@ void Jugador::actualizar(float time)
     if (abs(velocidad.y()) < 1e-2) { velocidad.setY(0); }
 
     timerInvencible = timerInvencible + time;
+
+    transformada = QTransform().translate(posicion.x(),posicion.y()).rotate(angulo);
+    //transformo el colisionable
+    QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
+    colisionable.setPoligono( colisionableTrans );
 }
 
 QVector2D Jugador::getDireccion()

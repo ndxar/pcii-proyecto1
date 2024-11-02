@@ -34,6 +34,7 @@ private:
     int tiempoInvencible;
     int timerInvencible = 0;
     int angulo = 180;
+    QTransform transformada;
 };
 
 #endif // JUGADOR_H

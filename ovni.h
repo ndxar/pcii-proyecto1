@@ -19,6 +19,7 @@ protected:
     float tamanio = 5;
     int timeSinceLastShot = 0;
     int timeSinceLastDirChange = 0;
+    QTransform transformada;
 };
 
 #endif // OVNI_H
