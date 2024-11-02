@@ -12,6 +12,8 @@
 #include "as_mediano.h"
 #include "as_subdivisible.h"
 #include "as_chico.h"
+#include "ov_chico.h"
+#include "ov_grande.h"
 
 class Juego : public dibujable
 {

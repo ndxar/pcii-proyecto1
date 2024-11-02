@@ -22,6 +22,8 @@ Juego::Juego()
     jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
 
+    lista_dibujables.append( new Ov_Grande(tablero->getCentro()) );
+
 }
 
 
@@ -119,6 +121,9 @@ void Juego::actualizarEstado(float time)
 
     }
 
+    //chquear si hay <= 3 asteroides y spawnear un ovni
+
+    //OVNIS
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
