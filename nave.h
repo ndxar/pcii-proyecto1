@@ -13,6 +13,7 @@ public:
     bool puedoDisparar(int time, int cooldownDisparo = 100);
     virtual void actualizar(float time) = 0;
     virtual void setVelocidad(float magnitud, QVector2D direccion) = 0;
+    void resetShotTimer();
 protected:
     int timeSinceLastShot = 0;
 

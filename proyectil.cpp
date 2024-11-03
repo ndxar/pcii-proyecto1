@@ -47,4 +47,9 @@ bool Proyectil::isAlive(float tiempoDeVida)
     }
 }
 
+Nave *Proyectil::getAutor()
+{
+    return this->autor;
+}
+
 // Proyectil::~Proyectil() {}

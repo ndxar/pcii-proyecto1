@@ -40,6 +40,7 @@ protected:
     Jugador* jugador;
 
     int timeSinceOvniDeath = 0;
+    int puntos = 0;
 
     QList<dibujable*> lista_dibujables;
     QList<Proyectil*> lista_proyectiles;

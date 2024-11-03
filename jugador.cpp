@@ -103,3 +103,8 @@ void Jugador::setFriccion(float newFriccion)
 {
     friccion = newFriccion;
 }
+
+QVector2D Jugador::getPosicion()
+{
+    return posicion;
+}

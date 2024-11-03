@@ -43,14 +43,49 @@ void Juego::actualizarEstado(float time)
         lista_jugadores[i]->actualizar(time);
         lista_jugadores[i]->checkBordes(tablero);                                   //chequeo de bordes deberia devolver un bool y yo elegir que hacer acá
 
-        // for (int j=0; j<lis)
+        for (int j=0; j<lista_colisionables.length(); j++)
+        {
+            if (lista_colisionables[j]->getColisionable().estaColisionando(lista_jugadores[i]->getColisionable())
+                && lista_colisionables[j]->esInvencible() == 0
+                && lista_jugadores[i]->esInvencible() == 0)
+            {
+                switch (lista_colisionables[j]->tipo())
+                {
+                    default:
+                        break;
+
+                    case TipoObjeto::Proyectil:
+                    {
+                        Proyectil* proyectil = dynamic_cast<Proyectil*>(lista_colisionables[j]);
+                        if (proyectil->getAutor() == lista_jugadores[i])
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            qDebug() << "a";
+                            rmvObjeto(lista_colisionables[j]);
+                            qDebug() << "b";
+                            rmvObjeto(lista_jugadores[i]);
+                            qDebug() << "c";
+                            addObjeto( new Jugador(tablero->getCentro(), 3000) );
+                            qDebug() << "d";
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (i > (lista_jugadores.length() - 1)) { break; }
+        }
+        if (i > (lista_jugadores.length() - 1)) { break; }
     }
 
     //ACTUALIZAR PROYECTILES
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i=0; i<lista_proyectiles.length(); i++)
     {
-        if (lista_proyectiles[i]->isAlive(500))                                     //proyectiles duran 500ms
+        if (lista_proyectiles[i]->isAlive(1000))                                     //proyectiles duran 500ms
         {
             lista_proyectiles[i]->checkBordes(tablero);
             lista_proyectiles[i]->actualizar(time);
@@ -79,10 +114,18 @@ void Juego::actualizarEstado(float time)
 
                     case TipoObjeto::Jugador:
                         addObjeto( new Jugador(tablero->getCentro(), 3000) );
+                        rmvObjeto(lista_colisionables[j]);                  //remuevo objeto que colisiono
+                        rmvObjeto(lista_ovnis[i]);                          //remuevo ovni
+                        break;
 
-                    case TipoObjeto::Proyectil:                             //cualquier proyectil destroza un ovni
-                        // Proyectil* proye = dynamic_cast<Proyectil*>(lista_colisionables[j]);
-
+                    case TipoObjeto::Proyectil:
+                    {
+                        Proyectil* proyectil = dynamic_cast<Proyectil*>(lista_colisionables[j]);
+                        if (proyectil->getAutor() == lista_ovnis[i])
+                        {
+                            break;
+                        }
+                    }
                         rmvObjeto(lista_colisionables[j]);                  //remuevo objeto que colisiono
                         rmvObjeto(lista_ovnis[i]);                          //remuevo ovni
                         break;
@@ -96,7 +139,7 @@ void Juego::actualizarEstado(float time)
 
 
 
-        //mover el ovni en direccion random
+                                                                                                    //mover el ovni en direccion random
         if (lista_ovnis[i]->shouldMove(time))
         {
             QVector2D direccion;
@@ -123,10 +166,34 @@ void Juego::actualizarEstado(float time)
 
             lista_ovnis[i]->setVelocidad(0.2,direccion);
             lista_ovnis[i]->resetMoveTimer();
-
         }
 
-        //disparar
+                                                                                                    // disparar
+        if (lista_ovnis[i]->puedoDisparar(time, 3000))
+        {
+            switch (lista_ovnis[i]->tipo())
+            {
+                default:
+                    break;
+
+                case TipoObjeto::Ov_Chico:
+                {
+                    float x = lista_jugadores[0]->getPosicion().x() - lista_ovnis[i]->getPosicion().x();
+                    float y = lista_jugadores[0]->getPosicion().y() - lista_ovnis[i]->getPosicion().y();
+                    QVector2D direccion = QVector2D(x,y).normalized();
+                    addObjeto( new Proyectil(lista_ovnis[i],lista_ovnis[i]->getPosicion(),direccion,0.9,5));
+                    break;
+                }
+
+                case TipoObjeto::Ov_Grande:
+                    float x = QRandomGenerator::global()->bounded(-100,100);
+                    float y = QRandomGenerator::global()->bounded(-100,100);
+                    QVector2D direccion = QVector2D(x,y).normalized();
+                    addObjeto( new Proyectil(lista_ovnis[i],lista_ovnis[i]->getPosicion(),direccion,0.9,3));
+                    break;
+            }
+            lista_ovnis[i]->resetShotTimer();
+        }
 
     }
 
@@ -168,6 +235,7 @@ void Juego::actualizarEstado(float time)
                                 {
                                 addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
                                 addObjeto( new As_Mediano(lista_asteroides[i]->getPosicion()) );
+                                puntos += 20;
                                 break;
                                 }
 
@@ -175,8 +243,12 @@ void Juego::actualizarEstado(float time)
                                 {
                                 addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
                                 addObjeto( new As_Chico(lista_asteroides[i]->getPosicion()) );
+                                puntos += 50;
                                 break;
                                 }
+                            case TipoObjeto::As_Chico:
+                                puntos += 100;
+                                break;
                         }
 
                         rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
@@ -193,7 +265,7 @@ void Juego::actualizarEstado(float time)
     }
 
 
-    //chquear si hay <= 3 asteroides y spawnear un ovni
+    //chquear si hay <= 3 asteroides y spawnear un ovni grande
     if (shouldSpawnOvni(time) && lista_asteroides.length() <= 3 && lista_ovnis.length() <= 0)
     {
         float posX;
@@ -202,9 +274,9 @@ void Juego::actualizarEstado(float time)
         else { posX = tablero->getP2().x(); }
 
         posY = QRandomGenerator::global()->bounded( (int)tablero->getP2().y() );             //elijo al azar un lugar en todo el borde lateral
-        qDebug() << posY;
+        qDebug() << "aaaaaaaaaa" << posX << posY;
 
-        addObjeto( new Ov_Grande(QVector2D(posX,posY)) );
+        addObjeto( new Ov_Chico(QVector2D(posX,posY)) );
     }
 
 
