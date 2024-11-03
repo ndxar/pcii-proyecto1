@@ -19,9 +19,23 @@ gameContainer::gameContainer(QWidget* parent)
 void gameContainer::paintEvent(QPaintEvent* ev)
 {
     QPainter p(this);
+    p.setWindow(QRect(0,0,1500,1000));
 
-    p.setWindow(QRect(0,0,1920,1080));
-    p.setViewport(0,0,1280,720);
+
+    if (this->width() > this->height()*aspectRatio)
+    {
+        float x1 = this->height()*aspectRatio;
+        float y1 = this->height();
+        p.setViewport(0,0,x1,y1);
+    }
+    else
+    {
+        int x1 = this->width();
+        int y1 = this->width()/aspectRatio;
+        p.setViewport(0,0,x1,y1);
+    }
+
+
 
     juego->actualizarEstado(refresco_ms);
 

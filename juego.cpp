@@ -22,11 +22,6 @@ Juego::Juego()
 
     jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
-
-    // Ovni* ov1 = new Ov_Chico(tablero->getCentro());
-    // Ovni* ov2 = new Ov_Grande(QVector2D(500,500));
-    // addObjeto(ov1);
-    // addObjeto(ov2);
 }
 
 
