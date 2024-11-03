@@ -1,4 +1,5 @@
 #include "juego.h"
+#include <QRandomGenerator>
 
 Juego::Juego()
 {
@@ -22,10 +23,10 @@ Juego::Juego()
     jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
 
-    Ovni* ov1 = new Ov_Chico(tablero->getCentro());
-    Ovni* ov2 = new Ov_Grande(QVector2D(500,500));
-    addObjeto(ov1);
-    addObjeto(ov2);
+    // Ovni* ov1 = new Ov_Chico(tablero->getCentro());
+    // Ovni* ov2 = new Ov_Grande(QVector2D(500,500));
+    // addObjeto(ov1);
+    // addObjeto(ov2);
 }
 
 
@@ -120,12 +121,8 @@ void Juego::actualizarEstado(float time)
                                 }
                         }
 
-
-                        qDebug() << "a";
                         rmvObjeto(lista_colisionables[j]);      //remuevo objeto que colisiono
-                        qDebug() << "b";
                         rmvObjeto(lista_asteroides[i]);         //remuevo asteroide
-                        qDebug() << "c";
 
                         break;
                 }
@@ -137,7 +134,24 @@ void Juego::actualizarEstado(float time)
 
     }
 
+
     //chquear si hay <= 3 asteroides y spawnear un ovni
+    qDebug() << timeSinceOvniDeath;
+    if (shouldSpawnOvni(time) && lista_asteroides.length() <= 3 && lista_ovnis.length() <= 0)
+    {
+        QRandomGenerator genRand = QRandomGenerator();
+        genRand.bounded((int)2);
+        float posX;
+        float posY;
+        if (genRand.generate()) { posX = tablero->getP1().x(); }        //elijo al azar uno de los bordes laterales
+        else { posX = tablero->getP2().x(); }
+        genRand.bounded( (int)tablero->getP2().y() );
+        posY = genRand.generate();                                      //elijo al azar un lugar en todo el borde lateral
+        qDebug() << posY;
+
+        addObjeto( new Ov_Grande(QVector2D(posX,posY)) );
+    }
+
 
 }
 
@@ -241,16 +255,31 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
             qDebug() << "ovc";
 
         case TipoObjeto::Ov_Grande:
-            qDebug() << "ovg";
             lista_ovnis.remove(lista_ovnis.indexOf(objeto));
-            qDebug() << "1";
             lista_colisionables.remove(lista_colisionables.indexOf(objeto));
-            qDebug() << "2";
             lista_dibujables.remove(lista_dibujables.indexOf(objeto));
-            qDebug() << "3";
             delete objeto;
-            qDebug() << "4";
+            resetTimeOvniDeath();
             break;
     }
 
 }
+
+void Juego::resetTimeOvniDeath()
+{
+    timeSinceOvniDeath = 0;
+}
+
+bool Juego::shouldSpawnOvni(int time, int cooldownOvni)
+{
+    timeSinceOvniDeath += time;
+    if (timeSinceOvniDeath > cooldownOvni)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+

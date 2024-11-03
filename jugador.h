@@ -21,10 +21,8 @@ public:
     QVector2D getVelocidad();
     QVector2D getDireccion();
     float getAngRad();
-
     TipoObjeto tipo() const override { return TipoObjeto::Jugador; }
     bool esInvencible() override;
-
 
 private:
     // QVector2D posicion;
@@ -35,6 +33,7 @@ private:
     int timerInvencible = 0;
     int angulo = 180;
     QTransform transformada;
+
 };
 
 #endif // JUGADOR_H

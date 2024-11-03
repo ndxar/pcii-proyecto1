@@ -10,10 +10,11 @@ public:
     Nave(QVector2D posicion, QVector2D velocidad);
 
     // void checkColision(QList<asteroide*> lista_asteroides);
-
+    bool puedoDisparar(int time, int cooldownDisparo = 100);
     virtual void actualizar(float time) = 0;
 
 protected:
+    int timeSinceLastShot = 0;
 
 };
 

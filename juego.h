@@ -30,12 +30,16 @@ public:
     void rmvAsteroide(Asteroide* asteroide);
     void addObjeto(ObjetoVolador* newObjeto);
     void rmvObjeto(ObjetoVolador* objeto);
+    void resetTimeOvniDeath();
 
+    bool shouldSpawnOvni(int time, int cooldownOvni = 7000);
     QList<Jugador*> getJugadores();
 
 protected:
     Tablero* tablero;
     Jugador* jugador;
+
+    int timeSinceOvniDeath = 0;
 
     QList<dibujable*> lista_dibujables;
     QList<Proyectil*> lista_proyectiles;
