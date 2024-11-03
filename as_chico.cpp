@@ -22,6 +22,7 @@ As_Chico::As_Chico(QVector2D posicion, float velMagnitud ) :
 
 void As_Chico::dibujar(QPainter* p)
 {
+    p->setPen(QPen(Qt::white));
     transformada = QTransform().translate(posicion.x(),posicion.y()).scale(3,3);
     QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
     colisionable.setPoligono(colisionableTrans);

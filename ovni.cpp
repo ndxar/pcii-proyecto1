@@ -19,6 +19,7 @@ void Ovni::actualizar(float time)
 
 void Ovni::dibujar(QPainter* p)
 {
+    p->setPen(QPen(Qt::white));
     //dibuja el poligono del modelo que ve el usuario
     p->drawPolygon(transformada.map(poligono));
 

@@ -9,7 +9,9 @@ Tablero::Tablero(QVector2D p1, QVector2D p2) :
 
 void Tablero::dibujar(QPainter* p)
 {
-    // p->resetTransform();
+    p->setPen(QPen(Qt::black));
+    p->fillRect(QRect(p1.x(),p1.y(),p2.x(),p2.y()), Qt::black);
+    p->setPen(QPen(Qt::white));
     p->drawRect(p1.x(), p1.y(), p2.x()-p1.x(), p2.y()-p1.y());
 }
 

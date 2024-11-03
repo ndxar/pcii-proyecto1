@@ -3,7 +3,7 @@
 
 Juego::Juego()
 {
-    tablero = new Tablero(QVector2D(0, 0), QVector2D(700, 900));
+    tablero = new Tablero(QVector2D(0, 0), QVector2D(1500, 1000));
     lista_dibujables.append(tablero);
 
     // As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(1,0.1));

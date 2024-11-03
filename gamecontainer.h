@@ -20,7 +20,7 @@ public:
 protected:
     Juego* juego;
     float refresco_ms = 1 ;
-    float aspectRatio = 2/3; // 2:3 dos de ancho, tres de largo
+    float aspectRatio = 3.0/2.0;
 
     QTimer timer;
 

@@ -23,6 +23,7 @@ As_Grande::As_Grande(QVector2D posicion, float velMagnitud ) :
 
 void As_Grande::dibujar(QPainter* p)
 {
+    p->setPen(QPen(Qt::white));
     transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5);
     QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
     colisionable.setPoligono(colisionableTrans);

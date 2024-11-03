@@ -30,12 +30,10 @@ void gameContainer::paintEvent(QPaintEvent* ev)
     }
     else
     {
-        int x1 = this->width();
-        int y1 = this->width()/aspectRatio;
+        float x1 = this->width();
+        float y1 = this->width()/aspectRatio;
         p.setViewport(0,0,x1,y1);
     }
-
-
 
     juego->actualizarEstado(refresco_ms);
 

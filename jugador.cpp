@@ -22,11 +22,11 @@ void Jugador::dibujar(QPainter* p)
     QPen Pen;
     if (esInvencible())
     {
-        Pen = QPen(Qt::gray);
+        Pen = QPen(Qt::red);
     }
     else
     {
-        Pen = QPen(Qt::black);
+        Pen = QPen(Qt::white);
     }
     p->setPen(Pen);
     //dibuja el poligono del modelo que ve el usuario

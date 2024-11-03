@@ -26,6 +26,7 @@ protected:
     float tiempoProyectil = 0;
     Nave* autor;
     int size;
+    QTransform transformada = QTransform().translate(posicion.x(),posicion.y()).scale(size,size);
     // const float tiempoDeVida;
 };
 
