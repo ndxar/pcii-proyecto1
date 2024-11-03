@@ -13,7 +13,7 @@ public:
     void dibujar(QPainter* p) override;
     void actualizar(float time) override;
 
-    void rotar(int deltaAngulo);
+    void rotar(float deltaAngulo);
     void setVelocidad(float magnitud, QVector2D direccion = QVector2D(0,0)) override;
     void setFriccion(float newFriccion);
 
@@ -31,7 +31,7 @@ private:
     QPolygonF poligono;
     int tiempoInvencible;
     int timerInvencible = 0;
-    int angulo = 180;
+    float angulo = 180;
     QTransform transformada;
 
 };

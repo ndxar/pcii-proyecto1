@@ -14,6 +14,7 @@
 #include "as_chico.h"
 #include "ov_chico.h"
 #include "ov_grande.h"
+#include "tipoEvento.h"
 
 class Juego : public dibujable
 {
@@ -31,15 +32,21 @@ public:
     void addObjeto(ObjetoVolador* newObjeto);
     void rmvObjeto(ObjetoVolador* objeto);
     void resetTimeOvniDeath();
+    void addEvento(TipoEvento evento);
+    void manejarEvento(TipoEvento evento, int time);
+    void resetTimeShoot();
 
     bool shouldSpawnOvni(int time, int cooldownOvni = 7000);
+    bool shouldShoot(int time, int cooldownShot = 200);
     QList<Jugador*> getJugadores();
 
+    void rmvEvento(TipoEvento evento);
 protected:
     Tablero* tablero;
     Jugador* jugador;
 
     int timeSinceOvniDeath = 0;
+    int timeSinceLastShot = 0;
     int puntos = 0;
 
     QList<dibujable*> lista_dibujables;
@@ -48,6 +55,7 @@ protected:
     QList<ObjetoVolador*> lista_colisionables;
     QList<Jugador*> lista_jugadores;
     QList<Ovni*> lista_ovnis;
+    QList<TipoEvento> lista_eventos;
 
 };
 

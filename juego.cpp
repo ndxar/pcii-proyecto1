@@ -36,6 +36,14 @@ Juego::~Juego()
 
 void Juego::actualizarEstado(float time)
 {
+    //MANEJAR EL TEMA DE EVENTOS
+    shouldShoot(time);
+
+    for (int i=0; i<lista_eventos.length(); i++)
+    {
+        manejarEvento(lista_eventos[i],time);
+    }
+
     // ACTUALIZAR JUGADORES
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i=0; i<lista_jugadores.length(); i++)
@@ -396,10 +404,64 @@ void Juego::resetTimeOvniDeath()
     timeSinceOvniDeath = 0;
 }
 
+void Juego::addEvento(TipoEvento evento)
+{
+    lista_eventos.append(evento);
+}
+
+void Juego::rmvEvento(TipoEvento evento)
+{
+    lista_eventos.remove(lista_eventos.indexOf(evento));
+}
+
+void Juego::manejarEvento(TipoEvento evento, int time)
+{
+        switch (evento)
+        {
+            case TipoEvento::Avanzar:
+                lista_jugadores[0]->setVelocidad(0.3);
+                break;
+
+            case TipoEvento::Derecha:
+                lista_jugadores[0]->rotar(0.5);
+                break;
+
+            case TipoEvento::Izquierda:
+                lista_jugadores[0]->rotar(-0.5);
+                break;
+
+            case TipoEvento::Disparo:
+                if (shouldShoot(time, 500))
+                {
+                    addObjeto( new Proyectil(lista_jugadores[0],lista_jugadores[0]->getPosicion(), lista_jugadores[0]->getDireccion(), 0.9) );
+                    resetTimeShoot();
+                }
+                break;
+        }
+}
+
+void Juego::resetTimeShoot()
+{
+    timeSinceLastShot = 0;
+}
+
 bool Juego::shouldSpawnOvni(int time, int cooldownOvni)
 {
     timeSinceOvniDeath += time;
     if (timeSinceOvniDeath > cooldownOvni)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+bool Juego::shouldShoot(int time, int cooldownShot)
+{
+    timeSinceLastShot += time;
+    if (timeSinceLastShot > cooldownShot)
     {
         return 1;
     }

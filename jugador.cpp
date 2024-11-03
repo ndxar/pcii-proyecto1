@@ -38,14 +38,19 @@ void Jugador::dibujar(QPainter* p)
 
 void Jugador::setVelocidad(float magnitud, QVector2D direccion)
 {
-    if (magnitud > 0)
-        {
-        velocidad = QVector2D(-magnitud*sin(this->getAngRad()),magnitud*cos(this->getAngRad()));
-        }
-    else { velocidad = QVector2D(0,0); }
+    float _x = -sin(getAngRad());
+    float _y = cos(getAngRad());
+
+    this->velocidad = QVector2D(_x,_y) * magnitud;
+
+    // if (magnitud > 0)
+    //     {
+    //     this->velocidad = QVector2D(-sin(this->getAngRad()),cos(this->getAngRad()))*magnitud;
+    //     }
+    // else { velocidad = QVector2D(0,0); }
 }
 
-void Jugador::rotar(int deltaAngulo)
+void Jugador::rotar(float deltaAngulo)
 {
     angulo = angulo+deltaAngulo;
 }
@@ -63,8 +68,8 @@ void Jugador::actualizar(float time)
     // QTransform transformada = QTransform().translate(velocidad.x() * time,velocidad.y() * time);
     // colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
 
-    velocidad.setX( (velocidad.x() / friccion) * time);
-    velocidad.setY( (velocidad.y() / friccion) * time);
+    velocidad.setX( (velocidad.x() / friccion) );
+    velocidad.setY( (velocidad.y() / friccion) );
 
     if (abs(velocidad.x()) < 1e-2) { velocidad.setX(0); }
     if (abs(velocidad.y()) < 1e-2) { velocidad.setY(0); }

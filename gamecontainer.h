@@ -13,16 +13,24 @@ class gameContainer : public QWidget
 public:
     explicit gameContainer(QWidget* parent = nullptr);
 
-    void keyPressEvent(QKeyEvent* event) override;      //sobreescribo la funcion interna de QT para detectar cuando presiono una tecla
+    // void keyPressEvent(QKeyEvent* event) override;      //sobreescribo la funcion interna de QT para detectar cuando presiono una tecla
 
     void paintEvent(QPaintEvent* ev) override;
 
+    void addEvento(TipoEvento ev);
+    void rmvEvento(TipoEvento ev);
+    void doEventos();
+
+    Juego* getJuego();
+
 protected:
     Juego* juego;
-    float refresco_ms = 1 ;
+    float refresco_ms = 1;
     float aspectRatio = 3.0/2.0;
+    QList<TipoEvento> lista_eventos;
 
     QTimer timer;
+    QElapsedTimer elapsedTimer;
 
 };
 
