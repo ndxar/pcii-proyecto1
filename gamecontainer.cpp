@@ -21,22 +21,29 @@ void gameContainer::paintEvent(QPaintEvent* ev)
     QPainter p(this);
     p.setWindow(QRect(0,0,1500,1000));
 
+    float x0 = 0;
+    float y0 = 0;
+    float x1 = this->width();
+    float y1 = this->height();
 
     if (this->width() > this->height()*aspectRatio)
     {
-        float x1 = this->height()*aspectRatio;
-        float y1 = this->height();
-        p.setViewport(0,0,x1,y1);
+        x1 = this->height()*aspectRatio;
+        y1 = this->height();
+
+        x0 = this->width()/2.0 - x1/2;
     }
     else
     {
-        float x1 = this->width();
-        float y1 = this->width()/aspectRatio;
-        p.setViewport(0,0,x1,y1);
+        x1 = this->width();
+        y1 = this->width()/aspectRatio;
+
+        y0 = this->height()/2.0 - y1/2;
     }
 
-    juego->actualizarEstado(refresco_ms);
+    p.setViewport(x0,y0,x1,y1);
 
+    juego->actualizarEstado(refresco_ms);
     juego->dibujar(&p);
 }
 
