@@ -46,7 +46,9 @@ void Juego::actualizarEstado(float time)
     for (int i=0; i<lista_jugadores.length(); i++)
     {
         lista_jugadores[i]->actualizar(time);
-        lista_jugadores[i]->checkBordes(tablero);
+        lista_jugadores[i]->checkBordes(tablero);                                   //chequeo de bordes deberia devolver un bool y yo elegir que hacer acá
+
+        // for (int j=0; j<lis)
     }
 
     //ACTUALIZAR PROYECTILES
@@ -70,6 +72,31 @@ void Juego::actualizarEstado(float time)
     {
         lista_ovnis[i]->actualizar(time);
         lista_ovnis[i]->checkBordes(tablero);
+        for (int j=0; j<lista_colisionables.length(); j++)
+        {
+            if (lista_colisionables[j]->getColisionable().estaColisionando(lista_ovnis[i]->getColisionable())
+                && lista_colisionables[j]->esInvencible() == 0)
+            {
+                switch (lista_colisionables[j]->tipo())
+                {
+                    default:                                                //no preciso chequear asteroides ya que lo hago en los asteroides
+                        break;                                              //quiero que ovnis no colisionen entre si
+
+                    case TipoObjeto::Jugador:
+                        addObjeto( new Jugador(tablero->getCentro(), 3000) );
+
+                    case TipoObjeto::Proyectil:                             //cualquier proyectil destroza un ovni
+                        // Proyectil* proye = dynamic_cast<Proyectil*>(lista_colisionables[j]);
+
+                        rmvObjeto(lista_colisionables[j]);                  //remuevo objeto que colisiono
+                        rmvObjeto(lista_ovnis[i]);                          //remuevo ovni
+                        break;
+                }
+            }
+            if (i > (lista_asteroides.length() - 1)) { break; } //NO es buena práctica, pero cuando saco el último elemento
+                                                                //puedo irme del indice, y con esto me aseguro de quedarme
+                                                                //dentro del rango
+        }
     }
 
     //ACTUALIZAR ASTEROIDES Y CHEQUEAR SUS COLISIONES CON JUG., OVNI, PROYEC.
@@ -282,4 +309,3 @@ bool Juego::shouldSpawnOvni(int time, int cooldownOvni)
         return 0;
     }
 }
-
