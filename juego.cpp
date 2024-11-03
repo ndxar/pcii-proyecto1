@@ -88,10 +88,46 @@ void Juego::actualizarEstado(float time)
                         break;
                 }
             }
-            if (i > (lista_asteroides.length() - 1)) { break; } //NO es buena práctica, pero cuando saco el último elemento
+            if (i > (lista_ovnis.length() - 1)) { break; } //NO es buena práctica, pero cuando saco el último elemento
                                                                 //puedo irme del indice, y con esto me aseguro de quedarme
                                                                 //dentro del rango
         }
+        if (i > (lista_ovnis.length() - 1)) { break; }
+
+
+
+        //mover el ovni en direccion random
+        if (lista_ovnis[i]->shouldMove(time))
+        {
+            QVector2D direccion;
+            int nroRandom = QRandomGenerator::global()->bounded(0,5);
+            qDebug() << nroRandom;
+            switch (nroRandom)
+            {
+                default:
+                    direccion = QVector2D(1,0);
+                    break;
+                case 0:
+                    direccion = QVector2D(1,1);
+                    break;
+                case 1:
+                    direccion = QVector2D(-1,1);
+                    break;
+                case 2:
+                    direccion = QVector2D(-1,-1);
+                    break;
+                case 3:
+                    direccion = QVector2D(1,-1);
+                    break;
+            }
+
+            lista_ovnis[i]->setVelocidad(0.2,direccion);
+            lista_ovnis[i]->resetMoveTimer();
+
+        }
+
+        //disparar
+
     }
 
     //ACTUALIZAR ASTEROIDES Y CHEQUEAR SUS COLISIONES CON JUG., OVNI, PROYEC.
@@ -158,17 +194,14 @@ void Juego::actualizarEstado(float time)
 
 
     //chquear si hay <= 3 asteroides y spawnear un ovni
-    qDebug() << timeSinceOvniDeath;
     if (shouldSpawnOvni(time) && lista_asteroides.length() <= 3 && lista_ovnis.length() <= 0)
     {
-        QRandomGenerator genRand = QRandomGenerator();
-        genRand.bounded((int)2);
         float posX;
         float posY;
-        if (genRand.generate()) { posX = tablero->getP1().x(); }        //elijo al azar uno de los bordes laterales
+        if (QRandomGenerator::global()->bounded(0,2)) { posX = tablero->getP1().x(); }        //elijo al azar uno de los bordes laterales
         else { posX = tablero->getP2().x(); }
-        genRand.bounded( (int)tablero->getP2().y() );
-        posY = genRand.generate();                                      //elijo al azar un lugar en todo el borde lateral
+
+        posY = QRandomGenerator::global()->bounded( (int)tablero->getP2().y() );             //elijo al azar un lugar en todo el borde lateral
         qDebug() << posY;
 
         addObjeto( new Ov_Grande(QVector2D(posX,posY)) );
@@ -274,7 +307,6 @@ void Juego::rmvObjeto(ObjetoVolador* objeto)
             break;
 
         case TipoObjeto::Ov_Chico:
-            qDebug() << "ovc";
 
         case TipoObjeto::Ov_Grande:
             lista_ovnis.remove(lista_ovnis.indexOf(objeto));

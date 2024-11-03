@@ -14,7 +14,7 @@ public:
     void actualizar(float time) override;
 
     void rotar(int deltaAngulo);
-    void setVelocidad(float newVelocidad);
+    void setVelocidad(float magnitud, QVector2D direccion = QVector2D(0,0)) override;
     void setFriccion(float newFriccion);
 
     QVector2D getPosicion();

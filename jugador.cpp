@@ -36,11 +36,11 @@ void Jugador::dibujar(QPainter* p)
     // p->drawPolygon(colisionable.getPoligono());
 }
 
-void Jugador::setVelocidad(float newVelocidad)
+void Jugador::setVelocidad(float magnitud, QVector2D direccion)
 {
-    if (newVelocidad > 0)
+    if (magnitud > 0)
         {
-        velocidad = QVector2D(-newVelocidad*sin(this->getAngRad()),newVelocidad*cos(this->getAngRad()));
+        velocidad = QVector2D(-magnitud*sin(this->getAngRad()),magnitud*cos(this->getAngRad()));
         }
     else { velocidad = QVector2D(0,0); }
 }

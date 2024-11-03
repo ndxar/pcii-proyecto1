@@ -26,3 +26,24 @@ void Ovni::dibujar(QPainter* p)
     //dibuja el poligono del colisionable
     // p->drawPolygon(colisionable.getPoligono());
 }
+
+bool Ovni::shouldMove(float time, float cooldownDirChange)
+{
+    timeSinceLastDirChange += time;
+
+    if (timeSinceLastDirChange > cooldownDirChange)
+    {
+        return 1;
+    }
+    else{ return 0; }
+}
+
+void Ovni::resetMoveTimer()
+{
+    timeSinceLastDirChange = 0;
+}
+
+void Ovni::setVelocidad(float magnitud, QVector2D direccion)
+{
+    this->velocidad = direccion.normalized() * magnitud;
+}

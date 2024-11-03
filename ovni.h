@@ -10,14 +10,17 @@ public:
     virtual ~Ovni() {}
 
     bool esInvencible() override {return 0; }
-    bool shouldMove();
+    bool shouldMove(float time, float cooldownDirChange = 3000);
 
     void actualizar(float time) override;
     void dibujar(QPainter *p) override;
+    void resetMoveTimer();
+    void setVelocidad(float magnitud, QVector2D direccion);
+
 protected:
     QPolygonF poligono;
     float tamanio = 5;
-    int timeSinceLastDirChange = 0;
+    int timeSinceLastDirChange = 4000;
     QTransform transformada;
 };
 
