@@ -133,6 +133,21 @@ void Juego::actualizarEstado(float time)
                         {
                             break;
                         }
+                        else
+                        {
+                            switch (lista_ovnis[i]->tipo()) {
+                            case TipoObjeto::Ov_Grande:
+                                puntos += 200;
+                                break;
+
+                            case TipoObjeto::Ov_Chico:
+                                puntos += 1000;
+                                break;
+
+                            default:
+                                break;
+                            }
+                        }
                     }
                         rmvObjeto(lista_colisionables[j]);                  //remuevo objeto que colisiono
                         rmvObjeto(lista_ovnis[i]);                          //remuevo ovni
@@ -296,6 +311,15 @@ void Juego::dibujar(QPainter* p) {
     {
         lista_dibujables[i]->dibujar(p);
     }
+
+    QString strScore = "Score: ";
+    strScore.append(QString::number(puntos));
+    QFont fuente = QFont("Helvetica");
+    fuente.setPointSize(30);
+    p->setFont(fuente);
+    QPen Pen = QPen(Qt::white);
+    p->setPen(Pen);
+    p->drawText(QPointF(50,100),strScore);
 }
 
 QList<Jugador*> Juego::getJugadores()

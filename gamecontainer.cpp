@@ -46,8 +46,6 @@ void gameContainer::paintEvent(QPaintEvent* ev)
 
     float _time = elapsedTimer.restart();
 
-    // doEventos();
-
     juego->actualizarEstado(_time);
     juego->dibujar(&p);
 }
