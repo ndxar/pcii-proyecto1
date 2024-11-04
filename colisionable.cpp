@@ -1,5 +1,4 @@
 #include "colisionable.h"
-#include "QDebug"
 
 Colisionable::Colisionable()
 {

@@ -67,7 +67,6 @@ void Jugador::actualizar(float time)
 
     // QTransform transformada = QTransform().translate(velocidad.x() * time,velocidad.y() * time);
     // colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
-    qDebug() << (float)time;
 
     velocidad.setX( (velocidad.x() - (velocidad.x() / friccion * time)) );
     velocidad.setY( (velocidad.y() - (velocidad.y() / friccion * time)) );

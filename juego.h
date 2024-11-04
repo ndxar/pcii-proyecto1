@@ -41,6 +41,7 @@ public:
     QList<Jugador*> getJugadores();
 
     void rmvEvento(TipoEvento evento);
+    void startState();
 protected:
     Tablero* tablero;
     Jugador* jugador;

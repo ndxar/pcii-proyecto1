@@ -12,7 +12,6 @@ public:
     void dibujar(QPainter* p) override;
 
     QVector2D getCentro();
-
     QVector2D getP1() {return p1;};
     QVector2D getP2() {return p2;};
 

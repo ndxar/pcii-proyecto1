@@ -13,10 +13,7 @@ class gameContainer : public QWidget
 public:
     explicit gameContainer(QWidget* parent = nullptr);
 
-    // void keyPressEvent(QKeyEvent* event) override;      //sobreescribo la funcion interna de QT para detectar cuando presiono una tecla
-
     void paintEvent(QPaintEvent* ev) override;
-
     void addEvento(TipoEvento ev);
     void rmvEvento(TipoEvento ev);
     void doEventos();

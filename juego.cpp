@@ -6,19 +6,7 @@ Juego::Juego()
     tablero = new Tablero(QVector2D(0, 0), QVector2D(1500, 1000));
     lista_dibujables.append(tablero);
 
-    // As_Grande* as1 = new As_Grande(QVector2D(500,500), QVector2D(1,0.1));
-    // addObjeto(as1);
-    // As_Grande* as2 = new As_Grande(QVector2D(100,500), QVector2D(-0.1,0.1));
-    // addObjeto(as2);
-    // As_Grande* as3 = new As_Grande(QVector2D(500,0), QVector2D(0.5,-0.1));
-    // addObjeto(as3);
-
-    // As_Mediano* as1 = new As_Mediano(QVector2D(500,500), QVector2D(0.1,0.1));
-    // addObjeto(as1);
-    As_Grande* as2 = new As_Grande(QVector2D(100,500));
-    addObjeto(as2);
-    As_Chico* as3 = new As_Chico(QVector2D(1000,0));
-    addObjeto(as3);
+    startState();
 
     jugador = new Jugador(tablero->getCentro(),0);
     addObjeto(jugador);
@@ -71,13 +59,9 @@ void Juego::actualizarEstado(float time)
                         }
                         else
                         {
-                            qDebug() << "a";
                             rmvObjeto(lista_colisionables[j]);
-                            qDebug() << "b";
                             rmvObjeto(lista_jugadores[i]);
-                            qDebug() << "c";
                             addObjeto( new Jugador(tablero->getCentro(), 3000) );
-                            qDebug() << "d";
                             break;
                         }
                     }
@@ -93,7 +77,7 @@ void Juego::actualizarEstado(float time)
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (int i=0; i<lista_proyectiles.length(); i++)
     {
-        if (lista_proyectiles[i]->isAlive(1000))                                     //proyectiles duran 500ms
+        if (lista_proyectiles[i]->isAlive(1000))                                     //proyectiles duran 1000ms
         {
             lista_proyectiles[i]->checkBordes(tablero);
             lista_proyectiles[i]->actualizar(time);
@@ -167,7 +151,6 @@ void Juego::actualizarEstado(float time)
         {
             QVector2D direccion;
             int nroRandom = QRandomGenerator::global()->bounded(0,5);
-            qDebug() << nroRandom;
             switch (nroRandom)
             {
                 default:
@@ -289,6 +272,7 @@ void Juego::actualizarEstado(float time)
 
 
     //chquear si hay <= 3 asteroides y spawnear un ovni grande
+    //si además hay más de 2000 puntos, deberia ser uno chico
     if (shouldSpawnOvni(time) && lista_asteroides.length() <= 3 && lista_ovnis.length() <= 0)
     {
         float posX;
@@ -297,11 +281,27 @@ void Juego::actualizarEstado(float time)
         else { posX = tablero->getP2().x(); }
 
         posY = QRandomGenerator::global()->bounded( (int)tablero->getP2().y() );             //elijo al azar un lugar en todo el borde lateral
-        qDebug() << "aaaaaaaaaa" << posX << posY;
 
         addObjeto( new Ov_Grande(QVector2D(posX,posY)) );
+
+        if (puntos>2000)
+        {
+            if (QRandomGenerator::global()->bounded(0,2)) { posX = tablero->getP1().x(); }        //elijo al azar uno de los bordes laterales
+            else { posX = tablero->getP2().x(); }
+            posY = QRandomGenerator::global()->bounded( (int)tablero->getP2().y() );
+
+            addObjeto(new Ov_Chico(QVector2D(posX,posY)));
+        }
     }
 
+
+    //una vez que no hay asteroides ni ovnis, reiniciar spawneando mas asteroides
+
+    if (lista_asteroides.length() == 0
+        && lista_ovnis.length() == 0)
+    {
+        startState();
+    }
 
 }
 
@@ -455,7 +455,7 @@ void Juego::manejarEvento(TipoEvento evento, int time)
                 break;
 
             case TipoEvento::Disparo:
-                if (shouldShoot(time, 500))
+                if (shouldShoot(time, 350))
                 {
                     addObjeto( new Proyectil(lista_jugadores[0],lista_jugadores[0]->getPosicion(), lista_jugadores[0]->getDireccion(), 0.9) );
                     resetTimeShoot();
@@ -493,4 +493,19 @@ bool Juego::shouldShoot(int time, int cooldownShot)
     {
         return 0;
     }
+}
+
+void Juego::startState()
+{
+    int x1 = tablero->getP1().x();
+    int y1 = tablero->getP1().y();
+    int x2 = tablero->getP2().x();
+    int y2 = tablero->getP2().y();
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
+    addObjeto( new As_Grande( QVector2D(QRandomGenerator::global()->bounded(x1,x2),QRandomGenerator::global()->bounded(y1,y2))) );
 }

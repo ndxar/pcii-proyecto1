@@ -25,8 +25,6 @@ public:
     bool esInvencible() override;
 
 private:
-    // QVector2D posicion;
-    // QVector2D velocidad;
     float friccion;
     QPolygonF poligono;
     int tiempoInvencible;

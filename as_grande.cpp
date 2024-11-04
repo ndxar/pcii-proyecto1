@@ -1,5 +1,4 @@
 #include "as_grande.h"
-#include <QDebug>
 
 As_Grande::As_Grande(QVector2D posicion, QVector2D velocidad):
     As_Subdivisible(posicion,velocidad)
@@ -24,7 +23,7 @@ As_Grande::As_Grande(QVector2D posicion, float velMagnitud ) :
 void As_Grande::dibujar(QPainter* p)
 {
     p->setPen(QPen(Qt::white));
-    transformada = QTransform().translate(posicion.x(),posicion.y()).scale(5,5);
+    transformada = QTransform().translate(posicion.x(),posicion.y()).scale(9,9);
     QPolygonF colisionableTrans = transformada.map( colisionable.getPolyShape() );
     colisionable.setPoligono(colisionableTrans);
 

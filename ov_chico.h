@@ -7,10 +7,10 @@ class Ov_Chico : public Ovni
 {
 public:
     Ov_Chico(QVector2D posicion);
+
     virtual ~Ov_Chico() {}
 
     TipoObjeto tipo() const override { return TipoObjeto::Ov_Chico; }
-    // void dibujar(QPainter *p) override;
 };
 
 #endif // OV_CHICO_H

@@ -36,7 +36,6 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_E :
         qDebug() << "Easter egg :O";
         break;
-
     }
 }
 
