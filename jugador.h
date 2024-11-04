@@ -7,13 +7,13 @@
 class Jugador : public Nave
 {
 public:
-    Jugador(QVector2D posicion, int tiempoInvencible = 0, float friccion = 1.002);
+    Jugador(QVector2D posicion, int tiempoInvencible = 0, float friccion = 1000);
 
     Proyectil* disparar();
     void dibujar(QPainter* p) override;
     void actualizar(float time) override;
 
-    void rotar(float deltaAngulo);
+    void rotar(float deltaAngulo, float time);
     void setVelocidad(float magnitud, QVector2D direccion = QVector2D(0,0)) override;
     void setFriccion(float newFriccion);
 

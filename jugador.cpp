@@ -50,9 +50,9 @@ void Jugador::setVelocidad(float magnitud, QVector2D direccion)
     // else { velocidad = QVector2D(0,0); }
 }
 
-void Jugador::rotar(float deltaAngulo)
+void Jugador::rotar(float deltaAngulo, float time)
 {
-    angulo = angulo+deltaAngulo;
+    angulo = angulo+(deltaAngulo*time);
 }
 
 float Jugador::getAngRad()
@@ -67,9 +67,10 @@ void Jugador::actualizar(float time)
 
     // QTransform transformada = QTransform().translate(velocidad.x() * time,velocidad.y() * time);
     // colisionable.setPoligono( transformada.map(colisionable.getPolyShape()) );
+    qDebug() << (float)time;
 
-    velocidad.setX( (velocidad.x() / friccion) );
-    velocidad.setY( (velocidad.y() / friccion) );
+    velocidad.setX( (velocidad.x() - (velocidad.x() / friccion * time)) );
+    velocidad.setY( (velocidad.y() - (velocidad.y() / friccion * time)) );
 
     if (abs(velocidad.x()) < 1e-2) { velocidad.setX(0); }
     if (abs(velocidad.y()) < 1e-2) { velocidad.setY(0); }

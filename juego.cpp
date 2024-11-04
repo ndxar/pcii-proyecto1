@@ -284,7 +284,7 @@ void Juego::actualizarEstado(float time)
         posY = QRandomGenerator::global()->bounded( (int)tablero->getP2().y() );             //elijo al azar un lugar en todo el borde lateral
         qDebug() << "aaaaaaaaaa" << posX << posY;
 
-        addObjeto( new Ov_Chico(QVector2D(posX,posY)) );
+        addObjeto( new Ov_Grande(QVector2D(posX,posY)) );
     }
 
 
@@ -423,11 +423,11 @@ void Juego::manejarEvento(TipoEvento evento, int time)
                 break;
 
             case TipoEvento::Derecha:
-                lista_jugadores[0]->rotar(0.5);
+                lista_jugadores[0]->rotar(0.5, time);
                 break;
 
             case TipoEvento::Izquierda:
-                lista_jugadores[0]->rotar(-0.5);
+                lista_jugadores[0]->rotar(-0.5, time);
                 break;
 
             case TipoEvento::Disparo:
