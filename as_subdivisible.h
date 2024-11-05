@@ -9,7 +9,7 @@ public:
     As_Subdivisible(QVector2D posicion, QVector2D velocidad);
     As_Subdivisible(QVector2D posicion, float velMagnitud);
 
-    bool hayQueDividir() override {return 1;};
+    // bool hayQueDividir() override {return 1;};
 
     virtual ~As_Subdivisible() { }
 

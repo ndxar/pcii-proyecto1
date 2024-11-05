@@ -48,16 +48,6 @@ void gameContainer::paintEvent(QPaintEvent* ev)
     juego->dibujar(&p);
 }
 
-void gameContainer::addEvento(TipoEvento ev)
-{
-    lista_eventos.append(ev);
-}
-
-void gameContainer::rmvEvento(TipoEvento ev)
-{
-    lista_eventos.removeAt(lista_eventos.indexOf(ev));
-}
-
 Juego* gameContainer::getJuego()
 {
     return juego;

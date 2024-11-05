@@ -9,7 +9,7 @@ public:
     As_Chico(QVector2D posicion, QVector2D velocidad);
     As_Chico(QVector2D posicion, float velMagnitud = 0.3);
 
-    bool hayQueDividir() override {return 0;};
+    // bool hayQueDividir() override {return 0;};
     void dibujar(QPainter *p) override;
 
     TipoObjeto tipo() const override { return TipoObjeto::As_Chico; }

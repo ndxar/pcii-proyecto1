@@ -59,9 +59,5 @@ void MainWindow::keyReleaseEvent(QKeyEvent* event) {
         ui->widget->getJuego()->rmvEvento(TipoEvento::Disparo);
         break;
 
-    case Qt::Key_E :
-        qDebug() << "Easter egg :O";
-        break;
-
     }
 }

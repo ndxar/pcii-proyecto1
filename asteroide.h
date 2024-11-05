@@ -11,7 +11,7 @@ public:
 
     void actualizar(float time) override;
 
-    virtual bool hayQueDividir() = 0;
+    // virtual bool hayQueDividir() = 0;
     bool esInvencible() override {return 0;}
 
     virtual ~Asteroide() { }
